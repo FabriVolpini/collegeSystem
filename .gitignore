@@ -95,6 +95,8 @@ db.sqlite3
 
 djangoDep/
 
+
+*Env/
 venv/
 myvenv/
 bootstrap/
