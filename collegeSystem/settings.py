@@ -30,13 +30,13 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'collegeApp.apps.SuitConfig',
-    'collegeApp.apps.CollegeAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'collegeApp.apps.CollegeAppConfig',
 
 ]
 
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'collegeSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'collegeApp/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -118,3 +118,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 AUTH_USER_MODEL = 'collegeApp.CustomUser'
+
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'

@@ -186,7 +186,7 @@ class Comment(SoftDeletionModel):
     date = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.student)
 
 
 class Phone(SoftDeletionModel):

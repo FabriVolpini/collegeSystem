@@ -2,6 +2,88 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.historialnotas, name='comment_list'),
+    #path('', home),
+    path('', views.comments_history, name='comment_list'),
+    path('asistencia/', views.see_assistance),
+    path('perfil/', views.teacher),
+    #path('',views.create_comment, name = 'comment_creation')
 
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
