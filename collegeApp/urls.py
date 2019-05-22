@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # path('', home),
+    path('misnotas/', views.my_comments)
 
     path('', views.comments_history, name='comments_list'),
 

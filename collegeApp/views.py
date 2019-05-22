@@ -46,3 +46,9 @@ def teacher(request):
 # def home(request):
 #   comments = Comment.objects.all()
 #  return render(request, 'comments_history.html', {'comments': comments})
+
+
+def my_comments(request):
+    return render(request, 'my_comments.html')
+
+def
