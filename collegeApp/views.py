@@ -16,8 +16,6 @@ def academic_progress(request):
     return render(request, 'academic_progress.html', {'grades': grades})
 
 
-
-
 def see_assistance(request):
     # Asistencia
     return render(request, 'see_assistance.html')
@@ -25,10 +23,6 @@ def see_assistance(request):
 
 def assistance(request):
     return render(request, 'assistance.html')
-
-
-def menu(request):
-    return render(request, 'menu.html')
 
 
 def director(request):
@@ -48,7 +42,13 @@ def teacher(request):
 #  return render(request, 'comments_history.html', {'comments': comments})
 
 
+def createcomment(request):
+    return render(request, 'create_comment.html')
+
+
 def my_comments(request):
     return render(request, 'my_comments.html')
 
-def
+
+def upgrade_grade(request):
+    return render(request, 'update_grade.html')
