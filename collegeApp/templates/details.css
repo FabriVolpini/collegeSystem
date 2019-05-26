@@ -11,7 +11,7 @@ nav{
 }
 
 button{
-
+    margin-bottom: 1em;
 }
 
 label{
@@ -41,5 +41,8 @@ article{
     margin-top:1em;
 }
 
+.commentform{
+    margin-top: 3em;
+}
 
 

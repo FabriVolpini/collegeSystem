@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from collegeApp.models import Comment, Grades
+from django.http import HttpResponseRedirect
+from .forms import CommentCreation, UpdateGrade
 
 
 @login_required(login_url="cuentas/login/")
@@ -36,19 +38,40 @@ def preceptor(request):
 def teacher(request):
     return render(request, 'teacher_userprofile.html')
 
+
+def base(request):
+    return render(request, 'base.html')
 # @login_required(login_url="cuentas/login/")
 # def home(request):
 #   comments = Comment.objects.all()
 #  return render(request, 'comments_history.html', {'comments': comments})
+def create_comment(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CommentCreation(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            return HttpResponseRedirect('/thanks/')
+# if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentCreation()
 
-
-def createcomment(request):
-    return render(request, 'create_comment.html')
+    return render(request, 'create_comment.html', {'form': form})
 
 
 def my_comments(request):
     return render(request, 'my_comments.html')
 
 
-def upgrade_grade(request):
-    return render(request, 'update_grade.html')
+def update_grade(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = UpdateGrade(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            return HttpResponseRedirect('/thanks/')
+# if a GET (or any other method) we'll create a blank form
+    else:
+        form = UpdateGrade()
+
+    return render(request, 'update_grade.html', {'form': form})

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,6 +23,20 @@
     </div>
 </nav>
 <br>
+
+{% if CustomUser.is_staff == True %}
+    {% if Professor  %}
+        {% block professor %}
+        {% endblock %}
+    {% else %}
+        {% block preceptor %}
+        {% endblock %}
+    {% endif %}
+{% else %}
+    {% block director %}
+    {% endblock %}
+{% endif %}
+
 <article>
 {% block content %}
 {% endblock %}
@@ -33,6 +46,12 @@
     {% block body %}
     {% endblock %}
 </div>
+
+<div class="container col-4">
+    {% block form %}
+    {% endblock %}
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

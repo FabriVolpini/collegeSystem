@@ -2,21 +2,36 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser
 from django import forms
 from django.db import models
-#from django.forms import forms
 
 
 class CustomUserCreationForm(UserCreationForm):
-
     class Meta(UserCreationForm):
         model = CustomUser
         fields = ('email',)
 
 
 class CustomUserChangeForm(UserChangeForm):
-
     class Meta:
         model = CustomUser
         fields = ('email',)
+
+
+class CommentCreation(forms.Form):
+    name = forms.CharField(label='Nombre del Alumno', max_length=100)
+    surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
+    year = forms.ChoiceField(label='Año', widget=forms.Select(), required=True)
+    division = forms.ChoiceField(label='División', widget=forms.Select(), required=True)
+    category = forms.ChoiceField(label='Categoría', widget=forms.Select(), required=True)
+    description = forms.CharField(label='Descripción')
+
+
+class UpdateGrade(forms.Form):
+    name = forms.CharField(label='Nombre del Alumno', max_length=100)
+    surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
+    subject = forms.ChoiceField(label='Materia', widget=forms.Select(), required=True)
+    grade = forms.ChoiceField(label='Nota', widget=forms.Select(), required=True)
+
+
 
 # class InitForm(forms.Form):
 #     name = forms.CharField()
