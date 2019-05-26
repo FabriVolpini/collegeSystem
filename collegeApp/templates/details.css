@@ -11,7 +11,7 @@ nav{
 }
 
 button{
-
+    margin-bottom: 1em;
 }
 
 label{
@@ -27,18 +27,22 @@ article{
     margin-top: 2em;
 }
 
-.menuform{
+.userform{
     margin-left: 3em;
-
 }
 
-.menubox{
+#userbox{
     margin-top: 3em;
     margin-left: 30em;
 }
 
-.menubtn{
+.userbtn{
     margin-left: 1em;
     margin-top:1em;
 }
+
+.commentform{
+    margin-top: 3em;
+}
+
 
