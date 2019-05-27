@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{%block title%}Perfil{% endblock %}
+
+{% block director %}
+
+    director
+
+   <div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <a href="create_comment.html" class="btn btn-primary">Crear nota</a>
+    </li>
+     <li class="list-group-item">
+      <a href="comments_history.html" class="btn btn-primary">Ver notas</a>
+    </li>
+    <li class="list-group-item">
+    <a href="see_assistance.html" class="btn btn-primary">Ver asistencias</a>
+    </li>
+    <li class="list-group-item">
+         <a href="academic_progress.html" class="btn btn-primary">Ver rendimiento académico</a>
+    </li>
+  </ul>
+</div>
+{% endblock %}

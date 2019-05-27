@@ -3,10 +3,12 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-from .managers import SoftDeletionManager, CustomUserManager
+from .managers import SoftDeletionManager, CustomUserManager, CommentsManager
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    first_name = models.CharField(max_length=50, null=False, blank=False, default='Jane')
+    last_name = models.CharField(max_length=50, null=False, blank=False, default='Doe')
     email = models.EmailField('email address', unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -117,24 +119,18 @@ class Subject(SoftDeletionModel):
 
 
 class Principal(CustomUser, SoftDeletionModel):
-    first_name = models.CharField(max_length = 50, null = False, blank = False)
-    last_name = models.CharField(max_length = 50, null=False, blank=False)
 
     def __str__(self):
         return "Director: " + self.first_name + " " + self.last_name
 
 
 class Preceptor(CustomUser, SoftDeletionModel):
-    first_name = models.CharField(max_length=50, null=False, blank=False)
-    last_name = models.CharField(max_length=50, null=False, blank=False)
 
     def __str__(self):
         return "Preceptor: " + self.first_name + " " + self.last_name
 
 
 class Professor(CustomUser, SoftDeletionModel):
-    first_name = models.CharField(max_length=50, null=False, blank=False)
-    last_name = models.CharField(max_length=50, null=False, blank=False)
     subjects = models.ManyToManyField(
         Subject,
         related_name = "subjects")
@@ -184,6 +180,7 @@ class Comment(SoftDeletionModel):
         related_name = "categories")
     description = models.TextField()
     date = models.DateTimeField(default = timezone.now)
+    objects = CommentsManager()
 
     def __str__(self):
         return str(self.student)

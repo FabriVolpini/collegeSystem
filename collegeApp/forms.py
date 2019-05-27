@@ -1,7 +1,22 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser
+from django.forms import PasswordInput
+from .models import CustomUser, Category, Course
 from django import forms
-from django.db import models
+
+
+class MembersCreationForm(forms.Form):
+
+    TYPE_CHOICES = (
+        (1, "Profesor"),
+        (2, "Preceptor"),
+        (3, "Director")
+    )
+
+    first_name = forms.CharField(label='Nombre', max_length=100)
+    last_name = forms.CharField(label='Apellido', max_length=100)
+    email = forms.EmailField()
+    password = forms.CharField(label='Contraseña', widget=PasswordInput)
+    type = forms.ChoiceField(choices=TYPE_CHOICES)
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -15,14 +30,16 @@ class CustomUserChangeForm(UserChangeForm):
         model = CustomUser
         fields = ('email',)
 
-
-class CommentCreation(forms.Form):
-    name = forms.CharField(label='Nombre del Alumno', max_length=100)
-    surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
-    year = forms.ChoiceField(label='Año', widget=forms.Select(), required=True)
-    division = forms.ChoiceField(label='División', widget=forms.Select(), required=True)
-    category = forms.ChoiceField(label='Categoría', widget=forms.Select(), required=True)
-    description = forms.CharField(label='Descripción')
+#
+class CommentCreationForm(forms.Form):
+#     # CATEGORY_CHOICES = Category.objects.all().__str__()
+#     # COURSE_CHOICES = Course.objects.all().__str__()
+#     #
+      name = forms.CharField(label='Nombre del Alumno', max_length=100)
+#     # surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
+#     # course = forms.ChoiceField(label='Año', choices=COURSE_CHOICES, required=True)
+#     # category = forms.ChoiceField(label='Categoría', choices=CATEGORY_CHOICES, required=True)
+#     # description = forms.CharField(label='Descripción')
 
 
 class UpdateGrade(forms.Form):
