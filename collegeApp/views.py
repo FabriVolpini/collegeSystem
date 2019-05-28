@@ -26,15 +26,6 @@ def see_assistance(request):
 
 
 @login_required(login_url="cuentas/login/")
-def assistance(request):
-    return render(request, 'assistance.html')
-
-
-def base(request):
-    return render(request, 'base.html')
-
-
-@login_required(login_url="cuentas/login/")
 def create_comment(request):
     if request.method == 'POST':
         form = CommentCreationForm(request.POST)

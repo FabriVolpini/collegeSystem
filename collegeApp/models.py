@@ -133,10 +133,10 @@ class Preceptor(CustomUser, SoftDeletionModel):
 class Professor(CustomUser, SoftDeletionModel):
     subjects = models.ManyToManyField(
         Subject,
-        related_name = "subjects")
+        related_name="subjects")
 
     def __str__(self):
-        return "Profesor: " +  self.first_name + " " + self.last_name
+        return "Profesor: " + self.first_name + " " + self.last_name
 
 
 class Student(SoftDeletionModel):
@@ -150,6 +150,9 @@ class Student(SoftDeletionModel):
         blank = False,
         null = False)
     birthday = models.DateTimeField()
+    course = models.ForeignKey(
+        Course,
+        related_name="student")
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
@@ -168,18 +171,17 @@ class Comment(SoftDeletionModel):
     id = models.AutoField(primary_key = True)
     student = models.ForeignKey(
         Student,
-        on_delete = models.CASCADE,
-        related_name = "comments")
+        related_name="comments")
     author = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
-        related_name = "comments")
+        related_name="comments")
     categories = models.ManyToManyField(
         Category,
-        blank = True,
-        related_name = "categories")
+        blank=True,
+        related_name="categories")
     description = models.TextField()
-    date = models.DateTimeField(default = timezone.now)
+    date = models.DateTimeField(default=timezone.now)
     objects = CommentsManager()
 
     def __str__(self):

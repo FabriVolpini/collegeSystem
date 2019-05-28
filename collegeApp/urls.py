@@ -8,7 +8,6 @@ urlpatterns = [
     path('calificaciones/', views.academic_progress, name='marks'),
     path('perfil/', views.profile, name='profile'),
     path('subircalificaciones/', views.update_grade, name='upgrade_note'),
-    # path('',views.create_comment, name = 'comment_creation')
     path('crearcomentario/', views.create_comment, name='create_comment'),
     path('nuevoUsuario/', views.new_user, name='newUser'),
 ]
