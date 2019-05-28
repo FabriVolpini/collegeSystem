@@ -2,40 +2,6 @@
 {% block title %}MisNotas{% endblock %}
 
 {% block content %}
-{% comment %}<article>
-<div class="card-deck">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{Comment.author}}</h5>
-        <p class="card-text">{{ Comment.description }}</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">{{Comment.date}}</small>
-        <small class="text-muted">{{ Comment.cathegory }}</small>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{ Comment.author }}</h5>
-      <p class="card-text">{{ Comment.description }}</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">{{ Comment.date }}</small>
-        <small class="text-muted">{{ Comment.cathegory }}</small>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{ Comment.author }}</h5>
-     <p class="card-text">{{ Comment.description }}</p>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted">{{ Comment.date }}</small>
-        <small class="text-muted">{{ Comment.cathegory }}</small>
-    </div>
-  </div>
-</div>
-</article>{% endcomment %}
 
     {% for comment in comments %}
         <div class="card-deck">

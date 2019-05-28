@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal
+from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal, Student, Subject
 from django.http import HttpResponseRedirect
 from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm
 
@@ -28,10 +28,6 @@ def see_assistance(request):
 @login_required(login_url="cuentas/login/")
 def assistance(request):
     return render(request, 'assistance.html')
-
-
-def base(request):
-    return render(request, 'base.html')
 
 
 @login_required(login_url="cuentas/login/")
@@ -123,3 +119,11 @@ def new_user(request):
         form = MembersCreationForm()
 
     return render(request, 'registration/new_account.html', {'form': form})
+
+
+def student_list(request):
+    students = Student.all_objects
+    return render(request, 'assistance.html', {'students': students})
+
+def subject_list(request):
+    subjects = Subject.objects.filter(year)

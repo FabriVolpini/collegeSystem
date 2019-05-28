@@ -4,7 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.comments_history, name='comments_list'),
     path('misnotas/', views.my_comments),
-    path('asistencia/', views.see_assistance, name='assistance_list'),
+    path('verAsistencia/', views.see_assistance, name='assistance_list'),
+    path('lista', views.student_list),
     path('calificaciones/', views.academic_progress, name='marks'),
     path('perfil/', views.profile, name='profile'),
     path('subircalificaciones/', views.update_grade, name='upgrade_note'),
