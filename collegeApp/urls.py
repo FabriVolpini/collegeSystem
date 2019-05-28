@@ -10,4 +10,5 @@ urlpatterns = [
     path('subircalificaciones/', views.update_grade, name='upgrade_note'),
     path('crearcomentario/', views.create_comment, name='create_comment'),
     path('nuevoUsuario/', views.new_user, name='newUser'),
+    path('agregarAlumno/', views.new_student, name='add_student')
 ]

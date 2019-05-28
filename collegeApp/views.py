@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.utils.dateparse import parse_date
+
 from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal
 from django.http import HttpResponseRedirect
-from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm
+from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, StudentCreationForm
 
 
 @login_required(login_url="cuentas/login/")
@@ -31,15 +33,9 @@ def create_comment(request):
         form = CommentCreationForm(request.POST)
 
         if form.is_valid():
-
-
-            # comment = Comment.objects.create(
-            #     student=,
-            #     author=,
-            #
-            # )
-            # comment.categories.add()
-            # comment.save()
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.save()
 
             return HttpResponseRedirect('/')
 
@@ -83,6 +79,23 @@ def profile(request):
 
     else:
         return render(request, 'accounts/teacher_profile.html')
+
+
+@login_required(login_url="cuentas/login/")
+def new_student(request):
+    if request.method == 'POST':
+        form = StudentCreationForm(request.POST)
+
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = StudentCreationForm()
+
+    return render(request, 'add_student.html', {'form': form})
 
 
 def new_user(request):
