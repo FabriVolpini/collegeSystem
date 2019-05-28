@@ -31,6 +31,16 @@ def create_comment(request):
         form = CommentCreationForm(request.POST)
 
         if form.is_valid():
+
+
+            # comment = Comment.objects.create(
+            #     student=,
+            #     author=,
+            #
+            # )
+            # comment.categories.add()
+            # comment.save()
+
             return HttpResponseRedirect('/')
 
     else:

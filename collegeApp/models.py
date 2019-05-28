@@ -3,7 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-from .managers import SoftDeletionManager, CustomUserManager, CommentsManager
+from .managers import SoftDeletionManager, CustomUserManager
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -142,17 +142,19 @@ class Professor(CustomUser, SoftDeletionModel):
 class Student(SoftDeletionModel):
     id = models.AutoField(primary_key = True)
     first_name = models.CharField(
-        max_length = 50,
-        blank = False,
-        null = False)
+        max_length=50,
+        blank=False,
+        null=False)
     last_name = models.CharField(
-        max_length = 50,
-        blank = False,
-        null = False)
+        max_length=50,
+        blank=False,
+        null=False)
     birthday = models.DateTimeField()
     course = models.ForeignKey(
         Course,
-        related_name="student")
+        related_name="student",
+        on_delete=models.CASCADE,
+        default='')
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
@@ -171,7 +173,8 @@ class Comment(SoftDeletionModel):
     id = models.AutoField(primary_key = True)
     student = models.ForeignKey(
         Student,
-        related_name="comments")
+        related_name="comments",
+        on_delete=models.CASCADE)
     author = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -182,7 +185,6 @@ class Comment(SoftDeletionModel):
         related_name="categories")
     description = models.TextField()
     date = models.DateTimeField(default=timezone.now)
-    objects = CommentsManager()
 
     def __str__(self):
         return str(self.student)
