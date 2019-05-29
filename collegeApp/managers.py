@@ -69,10 +69,3 @@ class SoftDeletionQuerySet(QuerySet):
         return self.exclude(deleted_at=None)
 
 
-class CommentsManager(models.Manager):
-
-    def create_comment(self, student, author, categories, description):
-        comment = self.create(student, author, categories, description)
-        comment.save()
-        return comment
-

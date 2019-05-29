@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput
-from .models import CustomUser, Category, Course
+from .models import CustomUser, Comment, Student
 from django import forms
 
 
@@ -30,16 +30,22 @@ class CustomUserChangeForm(UserChangeForm):
         model = CustomUser
         fields = ('email',)
 
-#
-class CommentCreationForm(forms.Form):
-#     # CATEGORY_CHOICES = Category.objects.all().__str__()
-#     # COURSE_CHOICES = Course.objects.all().__str__()
-#     #
-      name = forms.CharField(label='Nombre del Alumno', max_length=100)
-#     # surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
-#     # course = forms.ChoiceField(label='Año', choices=COURSE_CHOICES, required=True)
-#     # category = forms.ChoiceField(label='Categoría', choices=CATEGORY_CHOICES, required=True)
-#     # description = forms.CharField(label='Descripción')
+
+class CommentCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        exclude = ['deleted_at', 'date', 'author']
+
+
+class StudentCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Student
+        exclude = ['deleted_at']
+        labels = {
+            'birthday': 'Fecha de nacimiento'
+        }
 
 
 class UpdateGrade(forms.Form):
