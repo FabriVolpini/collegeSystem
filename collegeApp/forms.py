@@ -4,8 +4,8 @@ from .models import CustomUser, Category, Course
 from django import forms
 
 
-class MembersCreationForm(forms.Form):
 
+class MembersCreationForm(forms.Form):
     TYPE_CHOICES = (
         (1, "Profesor"),
         (2, "Preceptor"),
@@ -30,12 +30,15 @@ class CustomUserChangeForm(UserChangeForm):
         model = CustomUser
         fields = ('email',)
 
+
 #
 class CommentCreationForm(forms.Form):
-#     # CATEGORY_CHOICES = Category.objects.all().__str__()
-#     # COURSE_CHOICES = Course.objects.all().__str__()
-#     #
-      name = forms.CharField(label='Nombre del Alumno', max_length=100)
+    #     # CATEGORY_CHOICES = Category.objects.all().__str__()
+    #     # COURSE_CHOICES = Course.objects.all().__str__()
+    #     #
+    name = forms.CharField(label='Nombre del Alumno', max_length=100)
+
+
 #     # surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
 #     # course = forms.ChoiceField(label='Año', choices=COURSE_CHOICES, required=True)
 #     # category = forms.ChoiceField(label='Categoría', choices=CATEGORY_CHOICES, required=True)
@@ -49,6 +52,8 @@ class UpdateGrade(forms.Form):
     grade = forms.ChoiceField(label='Nota', widget=forms.Select(), required=True)
 
 
+class assistance(forms.Form):
+    presence = forms.BooleanField(widget=forms.CheckboxInput)
 
 # class InitForm(forms.Form):
 #     name = forms.CharField()

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal, Student, Subject
 from django.http import HttpResponseRedirect
 from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm
@@ -23,11 +24,6 @@ def academic_progress(request):
 def see_assistance(request):
     # Asistencia
     return render(request, 'see_assistance.html')
-
-
-@login_required(login_url="cuentas/login/")
-def assistance(request):
-    return render(request, 'assistance.html')
 
 
 @login_required(login_url="cuentas/login/")
@@ -121,9 +117,18 @@ def new_user(request):
     return render(request, 'registration/new_account.html', {'form': form})
 
 
+@login_required(login_url="cuentas/login/")
 def student_list(request):
-    students = Student.all_objects
+    students = Student.objects.all()
     return render(request, 'assistance.html', {'students': students})
 
-def subject_list(request):
-    subjects = Subject.objects.filter(year)
+
+def assistance(request):
+    if request.method == 'POST':  # si el usuario está enviando el formulario con datos
+        form = AssistanceForm(request.POST)  # Bound form
+        if form.is_valid():
+            presence = form.save()  # Guardar los datos en la base de datos
+        return HttpResponseRedirect(reverse('lista'))
+    else:
+        form = AssistanceForm()  # Unbound form
+    return render(request, 'assistance.html', {'form': form})

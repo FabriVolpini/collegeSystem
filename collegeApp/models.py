@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from .managers import SoftDeletionManager, CustomUserManager, CommentsManager
+from django.forms import ModelForm
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -266,3 +267,4 @@ class Presence(SoftDeletionModel):
 
     def __str__(self):
         return "%s %s %s" % (self.date, self.student, self.presence)
+
