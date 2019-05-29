@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal
+from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal, Course
 from django.http import HttpResponseRedirect
 from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm
 
@@ -15,8 +15,16 @@ def comments_history(request):
 @login_required(login_url="cuentas/login/")
 def academic_progress(request):
     # Progreso Academico
+    #asd = Course.
+    #Course.division.
+    # try:
+    #     division = Course.objects.
+    # Course.objects.get(division=)
+    #asd = Course.objects.filter(year="FIR")
+
+    course = Course.objects.all()
     grades = Grades.objects.all()
-    return render(request, 'academic_progress.html', {'grades': grades})
+    return render(request, 'academic_progress.html', {'grades': grades, 'course': course})
 
 
 @login_required(login_url="cuentas/login/")

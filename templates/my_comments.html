@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}MisNotas{% endblock %}
+{% block title %}Mis Notas{% endblock %}
 
 {% block content %}
 {% comment %}<article>
@@ -36,9 +36,9 @@
   </div>
 </div>
 </article>{% endcomment %}
-
+<div class="card-columns">
     {% for comment in comments %}
-        <div class="card-deck">
+
             <div class="card">
                 <div class="card-body">
 
@@ -50,7 +50,8 @@
                     <small class="text-muted">{{comment.categories}}</small>
                 </div>
             </div>
-        </div>
+
     {% endfor %}
+</div>
 
 {% endblock %}
