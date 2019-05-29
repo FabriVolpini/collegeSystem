@@ -144,3 +144,9 @@ def new_user(request):
         form = MembersCreationForm()
 
     return render(request, 'registration/new_account.html', {'form': form})
+
+
+@login_required(login_url="cuentas/login/")
+def training(request):
+    # Capacitacion
+    return render(request, 'capacitaciondocente.html')

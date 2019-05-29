@@ -10,5 +10,6 @@ urlpatterns = [
     path('subir-calificaciones/', views.update_grade, name='upgrade_note'),
     path('crear-comentario/', views.create_comment, name='create_comment'),
     path('nuevo-usuario/', views.new_user, name='newUser'),
-    path('agregarAlumno/', views.new_student, name='add_student')
+    path('agregar-alumno/', views.new_student, name='add_student'),
+    path('capacitacion/', views.training, name='training')
 ]

@@ -100,4 +100,5 @@ djangoDep/
 venv/
 myvenv/
 bootstrap/
+migrations/
 
