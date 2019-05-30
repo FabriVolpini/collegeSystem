@@ -113,7 +113,9 @@ def new_user(request):
 
             if form.cleaned_data['type'] == 1:
 
-                Professor.objects.create_user(
+                print(form.cleaned_data['type'] + " profe")
+
+                CustomUser.objects.create_user(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],
@@ -122,7 +124,9 @@ def new_user(request):
 
             elif form.cleaned_data['type'] == 2:
 
-                Preceptor.objects.create_staff_user(
+                print(form.cleaned_data['type'] + "prece")
+
+                CustomUser.objects.create_staff_user(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],
@@ -131,7 +135,9 @@ def new_user(request):
 
             else:
 
-                Principal.objects.create_superuser(
+                print(form.cleaned_data['type'])
+
+                CustomUser.objects.create_superuser(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],

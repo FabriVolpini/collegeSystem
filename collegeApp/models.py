@@ -10,6 +10,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50, null=False, blank=False, default='Jane')
     last_name = models.CharField(max_length=50, null=False, blank=False, default='Doe')
     email = models.EmailField('email address', unique=True)
+    is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)

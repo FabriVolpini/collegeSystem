@@ -15,7 +15,11 @@ class CustomUserManager(BaseUserManager):
         user.first_name = first_name
         user.last_name = last_name
         user.set_password(password)
+        user.is_superuser = False
+        user.is_staff = False
+        user.is_active = True
         user.save()
+
         return user
 
     def create_staff_user(self, first_name, last_name, email, password, **extra_fields):
