@@ -27,8 +27,6 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(Course)
 admin.site.register(Subject)
-admin.site.register(Principal)
-admin.site.register(Preceptor)
 admin.site.register(Professor)
 admin.site.register(Student)
 admin.site.register(Category)

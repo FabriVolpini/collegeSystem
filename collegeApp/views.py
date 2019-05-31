@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.utils.dateparse import parse_date
-from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal, Course
+from collegeApp.models import Comment, Grades, Professor, Course, CustomUser
 from django.http import HttpResponseRedirect
-from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, StudentCreationForm
+from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, StudentCreationForm, CourseCreationForm
 
 
 @login_required(login_url="cuentas/login/")
@@ -67,6 +66,10 @@ def update_grade(request):
         form = UpdateGrade(request.POST)
 
         if form.is_valid():
+            grade = form.save(commit=False)
+            grade.professor = request.user
+            grade.save()
+
             return HttpResponseRedirect('/')
 
     else:
@@ -106,6 +109,23 @@ def new_student(request):
     return render(request, 'add_student.html', {'form': form})
 
 
+@login_required(login_url="cuentas/login/")
+def new_course(request):
+    if request.method == 'POST':
+        form = CourseCreationForm(request.POST)
+
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = CourseCreationForm()
+
+    return render(request, 'add_course.html', {'form': form})
+
+
 def new_user(request):
     if request.method == 'POST':
         form = MembersCreationForm(request.POST)
@@ -114,7 +134,7 @@ def new_user(request):
 
             if form.cleaned_data['type'] == 1:
 
-                Professor.objects.create_user(
+                CustomUser.objects.create_user(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],
@@ -123,7 +143,7 @@ def new_user(request):
 
             elif form.cleaned_data['type'] == 2:
 
-                Preceptor.objects.create_staff_user(
+                CustomUser.objects.create_staff_user(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],
@@ -132,7 +152,7 @@ def new_user(request):
 
             else:
 
-                Principal.objects.create_superuser(
+                CustomUser.objects.create_superuser(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],
@@ -150,4 +170,4 @@ def new_user(request):
 @login_required(login_url="cuentas/login/")
 def training(request):
     # Capacitacion
-    return render(request, 'capacitaciondocente.html')
+    return render(request, 'teacher_training.html')

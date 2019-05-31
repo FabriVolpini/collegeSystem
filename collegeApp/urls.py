@@ -11,5 +11,6 @@ urlpatterns = [
     path('crear-comentario/', views.create_comment, name='create_comment'),
     path('nuevo-usuario/', views.new_user, name='newUser'),
     path('agregar-alumno/', views.new_student, name='add_student'),
-    path('capacitacion/', views.training, name='training')
+    path('capacitacion/', views.training, name='training'),
+    path('agregar-curso/', views.new_course, name='newCourse')
 ]

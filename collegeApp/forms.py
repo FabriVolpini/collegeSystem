@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput
-from .models import CustomUser, Comment, Student
+from .models import CustomUser, Comment, Student, Course, Grades
 from django import forms
 
 
@@ -48,11 +48,18 @@ class StudentCreationForm(forms.ModelForm):
         }
 
 
-class UpdateGrade(forms.Form):
-    name = forms.CharField(label='Nombre del Alumno', max_length=100)
-    surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
-    subject = forms.ChoiceField(label='Materia', widget=forms.Select(), required=True)
-    grade = forms.ChoiceField(label='Nota', widget=forms.Select(), required=True)
+class CourseCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Course
+        exclude = ['deleted_at']
+
+
+class UpdateGrade(forms.ModelForm):
+
+    class Meta:
+        model = Grades
+        exclude = ['deleted_at', 'professor']
 
 
 
