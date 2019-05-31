@@ -135,8 +135,8 @@ class Student(SoftDeletionModel):
 
 
 class Category(SoftDeletionModel):
-    id = models.AutoField(primary_key = True)
-    name = models.CharField(max_length = 200)
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=200)
     description = models.TextField()
 
     def __str__(self):
@@ -240,7 +240,7 @@ class Presence(SoftDeletionModel):
         CustomUser,
         null=True,
         on_delete=models.SET_NULL)
-    presence = models.NullBooleanField()
+    presence = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s %s %s" % (self.date, self.student, self.presence)

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from collegeApp.models import Comment, Grades, Professor, Course, CustomUser
 from django.http import HttpResponseRedirect
 from .forms import CommentCreationForm, GradeCreationForm, MembersCreationForm, StudentCreationForm, CourseCreationForm, \
-    SubjectCreationForm
+    SubjectCreationForm, CategoryCreationForm
 
 
 @login_required(login_url="cuentas/login/")
@@ -141,6 +141,23 @@ def new_subject(request):
         form = SubjectCreationForm()
 
     return render(request, 'add_subject.html', {'form': form})
+
+
+@login_required(login_url="cuentas/login/")
+def new_category(request):
+    if request.method == 'POST':
+        form = CategoryCreationForm(request.POST)
+
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = CategoryCreationForm()
+
+    return render(request, 'add_category.html', {'form': form})
 
 
 def new_user(request):

@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput
-from .models import CustomUser, Comment, Student, Course, Grades, Subject
+from .models import CustomUser, Comment, Student, Course, Grades, Subject, Category
 from django import forms
 
 
@@ -66,6 +66,13 @@ class SubjectCreationForm(forms.ModelForm):
 
     class Meta:
         model = Subject
+        exclude = ['deleted_at']
+
+
+class CategoryCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
         exclude = ['deleted_at']
 
 
