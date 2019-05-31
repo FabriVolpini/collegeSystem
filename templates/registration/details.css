@@ -1,0 +1,48 @@
+form{
+    margin-top: 2em;
+}
+
+table{
+    margin-top: 1em;
+}
+
+nav{
+    margin-bottom: 1em;
+}
+
+button{
+    margin-bottom: 1em;
+}
+
+label{
+    margin-left: 0.5em;
+}
+
+card{
+    width: 18rem;
+}
+
+article{
+   margin-left: 2em;
+    margin-top: 2em;
+}
+
+.userform{
+    margin-left: 3em;
+}
+
+#userbox{
+    margin-top: 3em;
+    margin-left: 30em;
+}
+
+.userbtn{
+    margin-left: 1em;
+    margin-top:1em;
+}
+
+.commentform{
+    margin-top: 3em;
+}
+
+

@@ -60,9 +60,9 @@ class Course(SoftDeletionModel):
     )
 
     SHIFT_IN_SCHOOL_CHOICES = (
-        ('turno mañana', 'Turno mañana'),
-        ('turno tarde', 'Turno tarde'),
-        ('turno noche', 'Turno noche'),
+        ('turno mañana', 'Turno Mañana'),
+        ('turno tarde', 'Turno Tarde'),
+        ('turno noche', 'Turno Noche'),
     )
 
     id_course = models.AutoField(primary_key=True)
@@ -82,7 +82,7 @@ class Course(SoftDeletionModel):
     shift = models.CharField(
         max_length=50,
         choices=SHIFT_IN_SCHOOL_CHOICES,
-        default='turno mañana',
+        default='Turno Mañana',
     )
 
     class Meta:

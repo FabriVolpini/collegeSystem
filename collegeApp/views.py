@@ -8,9 +8,10 @@ from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, Studen
 
 @login_required(login_url="cuentas/login/")
 def comments_history(request):
+    user = request.user
     # Historial de notas
     comments = Comment.objects.all()
-    return render(request, 'comments_history.html', {'comments': comments})
+    return render(request, 'comments_history.html', {'comments': comments, 'user': user})
 
 
 @login_required(login_url="cuentas/login/")
