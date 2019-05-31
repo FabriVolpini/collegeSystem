@@ -94,8 +94,9 @@ class Course(SoftDeletionModel):
 
 
 class Subject(SoftDeletionModel):
-    id_subject = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=254)
+    description = models.TextField()
 
     def __str__(self):
         return self.name
@@ -113,7 +114,7 @@ class Professor(SoftDeletionModel):
 
 
 class Student(SoftDeletionModel):
-    id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key=True)
     first_name = models.CharField(
         max_length=50,
         blank=False,

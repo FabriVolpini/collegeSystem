@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from collegeApp.models import Comment, Grades, Professor, Course, CustomUser
 from django.http import HttpResponseRedirect
-from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, StudentCreationForm, CourseCreationForm
+from .forms import CommentCreationForm, GradeCreationForm, MembersCreationForm, StudentCreationForm, CourseCreationForm, \
+    SubjectCreationForm
 
 
 @login_required(login_url="cuentas/login/")
@@ -62,7 +63,7 @@ def my_comments(request):
 @login_required(login_url="cuentas/login/")
 def update_grade(request):
     if request.method == 'POST':
-        form = UpdateGrade(request.POST)
+        form = GradeCreationForm(request.POST)
 
         if form.is_valid():
             grade = form.save(commit=False)
@@ -72,7 +73,7 @@ def update_grade(request):
             return HttpResponseRedirect('/')
 
     else:
-        form = UpdateGrade()
+        form = GradeCreationForm()
 
     return render(request, 'update_grade.html', {'form': form})
 
@@ -123,6 +124,23 @@ def new_course(request):
         form = CourseCreationForm()
 
     return render(request, 'add_course.html', {'form': form})
+
+
+@login_required(login_url="cuentas/login/")
+def new_subject(request):
+    if request.method == 'POST':
+        form = SubjectCreationForm(request.POST)
+
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = SubjectCreationForm()
+
+    return render(request, 'add_subject.html', {'form': form})
 
 
 def new_user(request):
