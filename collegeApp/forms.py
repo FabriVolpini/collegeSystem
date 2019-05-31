@@ -4,7 +4,6 @@ from .models import CustomUser, Student
 from django import forms
 
 
-
 class MembersCreationForm(forms.Form):
     TYPE_CHOICES = (
         (1, "Profesor"),

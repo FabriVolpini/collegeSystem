@@ -3,8 +3,12 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+<<<<<<< HEAD
 from .managers import SoftDeletionManager, CustomUserManager, CommentsManager
 from django.forms import ModelForm
+=======
+from .managers import SoftDeletionManager, CustomUserManager
+>>>>>>> e331a5b007ab4cdc3efb6cf57c7d741376146b03
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -42,66 +46,48 @@ class SoftDeletionModel(models.Model):
 
 
 class Course(SoftDeletionModel):
-    FIRST_YEAR = "FIR"
-    SECOND_YEAR = "SEC"
-    THIRD_YEAR = "THI"
-    FOURTH_YEAR = "FOU"
-    FIFTH_YEAR = "FIF"
-    SIXTH_YEAR = "SIX"
-    NINETH_YEAR = "NIN"
-
-    DIVISION_A = "A"
-    DIVISON_B = "B"
-    DIVISION_C = "C"
-    DIVISION_D = "D"
-    DIVISION_E = "E"
-
-    MORNING_SHIFT = "MS"
-    EVENING_SHIFT = "ES"
-    NIGHT_SHIFT = "NS"
-
     YEAR_IN_SCHOOL_CHOICES = (
-        (FIRST_YEAR, 'Primer Año'),
-        (SECOND_YEAR, 'Segundo Año'),
-        (THIRD_YEAR, 'Tercer Año'),
-        (FOURTH_YEAR, 'Cuarto Año'),
-        (FIFTH_YEAR, 'Quinto Año'),
-        (SIXTH_YEAR, 'Sexto Año'),
-        (NINETH_YEAR, 'Septimo Año'),
+        ('Primer año', 'Primer Año'),
+        ('Segundo año', 'Segundo Año'),
+        ('Tercer año', 'Tercer Año'),
+        ('Cuarto año', 'Cuarto Año'),
+        ('Quinto año', 'Quinto Año'),
+        ('Sexto año', 'Sexto Año'),
+        ('Septimo año', 'Septimo Año'),
     )
 
     DIVISION_IN_SCHOOL_CHOICES = (
-        (DIVISION_A, 'Division A'),
-        (DIVISON_B, 'Division B'),
-        (DIVISION_C, 'Division C'),
-        (DIVISION_D, 'Division D'),
-        (DIVISION_E, 'Division E'),
+        ('A', 'Division A'),
+        ('B', 'Division B'),
+        ('C', 'Division C'),
+        ('D', 'Division D'),
+        ('E', 'Division E'),
     )
 
     SHIFT_IN_SCHOOL_CHOICES = (
-        (MORNING_SHIFT, 'Turno mañana'),
-        (EVENING_SHIFT, 'Turno tarde'),
-        (NIGHT_SHIFT, 'Turno noche'),
+        ('turno mañana', 'Turno mañana'),
+        ('turno tarde', 'Turno tarde'),
+        ('turno noche', 'Turno noche'),
     )
 
     id_course = models.AutoField(primary_key=True)
 
     year = models.CharField(
-        max_length=3,
+        max_length=50,
         choices=YEAR_IN_SCHOOL_CHOICES,
-        default=FIRST_YEAR,
+        default='Primer Año',
     )
 
     division = models.CharField(
-        max_length=1,
+        max_length=50,
         choices=DIVISION_IN_SCHOOL_CHOICES,
-        default=DIVISION_A,
+        default='A',
     )
 
     shift = models.CharField(
-        max_length=2,
+        max_length=50,
         choices=SHIFT_IN_SCHOOL_CHOICES,
-        default=MORNING_SHIFT,
+        default='turno mañana',
     )
 
     class Meta:
@@ -134,23 +120,28 @@ class Preceptor(CustomUser, SoftDeletionModel):
 class Professor(CustomUser, SoftDeletionModel):
     subjects = models.ManyToManyField(
         Subject,
-        related_name = "subjects")
+        related_name="subjects")
 
     def __str__(self):
-        return "Profesor: " +  self.first_name + " " + self.last_name
+        return "Profesor: " + self.first_name + " " + self.last_name
 
 
 class Student(SoftDeletionModel):
     id = models.AutoField(primary_key = True)
     first_name = models.CharField(
-        max_length = 50,
-        blank = False,
-        null = False)
+        max_length=50,
+        blank=False,
+        null=False)
     last_name = models.CharField(
-        max_length = 50,
-        blank = False,
-        null = False)
-    birthday = models.DateTimeField()
+        max_length=50,
+        blank=False,
+        null=False)
+    birthday = models.DateField()
+    course = models.ForeignKey(
+        Course,
+        related_name="student",
+        on_delete=models.CASCADE,
+        default='')
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
@@ -169,19 +160,18 @@ class Comment(SoftDeletionModel):
     id = models.AutoField(primary_key = True)
     student = models.ForeignKey(
         Student,
-        on_delete = models.CASCADE,
-        related_name = "comments")
+        related_name="comments",
+        on_delete=models.CASCADE)
     author = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
-        related_name = "comments")
+        related_name="comments")
     categories = models.ManyToManyField(
         Category,
-        blank = True,
-        related_name = "categories")
+        blank=True,
+        related_name="categories")
     description = models.TextField()
-    date = models.DateTimeField(default = timezone.now)
-    objects = CommentsManager()
+    date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.student)

@@ -9,9 +9,7 @@
         <br>
         {% for field in form %}
            {% csrf_token %}
-            <div class="field">
-            
-            </div>
+            <div class="field"></div>
             {{ form.as_p }}
         {% endfor %}
       <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
