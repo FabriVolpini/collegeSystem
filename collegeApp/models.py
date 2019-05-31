@@ -207,7 +207,7 @@ class Grades(SoftDeletionModel):
 
     id = models.AutoField(primary_key=True)
     professor = models.ForeignKey(
-        Professor,
+        CustomUser,
         null=True,
         on_delete=models.SET_NULL)
     student = models.ForeignKey(
@@ -225,7 +225,7 @@ class Grades(SoftDeletionModel):
     )
 
     def __str__(self):
-        return self.grade
+        return "%s %s" % (self.subject, self.student)
 
 
 class Presence(SoftDeletionModel):

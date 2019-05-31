@@ -65,6 +65,10 @@ def update_grade(request):
         form = UpdateGrade(request.POST)
 
         if form.is_valid():
+            grade = form.save(commit=False)
+            grade.professor = request.user
+            grade.save()
+
             return HttpResponseRedirect('/')
 
     else:
