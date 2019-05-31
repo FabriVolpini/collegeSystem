@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
-
 class CustomUserManager(BaseUserManager):
 
     def create_user(self, first_name, last_name, email, password, **extra_fields):
@@ -15,9 +14,6 @@ class CustomUserManager(BaseUserManager):
         user.first_name = first_name
         user.last_name = last_name
         user.set_password(password)
-        user.is_superuser = False
-        user.is_staff = False
-        user.is_active = True
         user.save()
 
         return user
@@ -72,4 +68,6 @@ class SoftDeletionQuerySet(QuerySet):
     def dead(self):
         return self.exclude(deleted_at=None)
 
-
+class ProfessorManager(models.Manager):
+    def create_professor(self):
+        return

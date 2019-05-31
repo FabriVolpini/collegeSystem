@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput
-from .models import CustomUser, Comment, Student
+from .models import CustomUser, Comment, Student, Course
 from django import forms
 
 
@@ -46,6 +46,13 @@ class StudentCreationForm(forms.ModelForm):
         labels = {
             'birthday': 'Fecha de nacimiento'
         }
+
+
+class CourseCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Course
+        exclude = ['deleted_at']
 
 
 class UpdateGrade(forms.Form):

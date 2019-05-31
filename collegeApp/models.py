@@ -94,32 +94,22 @@ class Course(SoftDeletionModel):
 
 
 class Subject(SoftDeletionModel):
-    id_subject = models.AutoField(primary_key = True)
-    name = models.CharField(max_length = 254)
+    id_subject = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=254)
 
     def __str__(self):
         return self.name
 
 
-class Principal(CustomUser, SoftDeletionModel):
-
-    def __str__(self):
-        return "Director: " + self.first_name + " " + self.last_name
-
-
-class Preceptor(CustomUser, SoftDeletionModel):
-
-    def __str__(self):
-        return "Preceptor: " + self.first_name + " " + self.last_name
-
-
-class Professor(CustomUser, SoftDeletionModel):
+class Professor(SoftDeletionModel):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="professor", primary_key=True)
     subjects = models.ManyToManyField(
         Subject,
-        related_name="subjects")
+        related_name="subjects",
+        blank=True)
 
     def __str__(self):
-        return "Profesor: " + self.first_name + " " + self.last_name
+        return "Profesor: " + self.user.first_name + " " + self.user.last_name
 
 
 class Student(SoftDeletionModel):
@@ -218,20 +208,20 @@ class Grades(SoftDeletionModel):
     id = models.AutoField(primary_key=True)
     professor = models.ForeignKey(
         Professor,
-        null = True,
-        on_delete = models.SET_NULL)
+        null=True,
+        on_delete=models.SET_NULL)
     student = models.ForeignKey(
         Student,
-        null = True,
-        on_delete = models.SET_NULL)
+        null=True,
+        on_delete=models.SET_NULL)
     subject = models.ForeignKey(
         Subject,
-        null = True,
-        on_delete = models.SET_NULL)
+        null=True,
+        on_delete=models.SET_NULL)
     grade = models.CharField(
-        max_length = 2,
-        choices = GRADE_CHOICES,
-        default = "0",
+        max_length=2,
+        choices=GRADE_CHOICES,
+        default="0",
     )
 
     def __str__(self):
@@ -240,15 +230,15 @@ class Grades(SoftDeletionModel):
 
 class Presence(SoftDeletionModel):
     id = models.AutoField(primary_key=True)
-    date = models.DateTimeField(default = timezone.now)
+    date = models.DateTimeField(default=timezone.now)
     student = models.OneToOneField(
         Student,
-        null = True,
-        on_delete = models.SET_NULL)
+        null=True,
+        on_delete=models.SET_NULL)
     preceptor = models.OneToOneField(
-        Preceptor,
-        null = True,
-        on_delete = models.SET_NULL)
+        CustomUser,
+        null=True,
+        on_delete=models.SET_NULL)
     presence = models.NullBooleanField()
 
     def __str__(self):

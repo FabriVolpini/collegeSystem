@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.utils.dateparse import parse_date
-from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal, Course
+from collegeApp.models import Comment, Grades, Professor, Course, CustomUser
 from django.http import HttpResponseRedirect
-from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, StudentCreationForm
+from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, StudentCreationForm, CourseCreationForm
 
 
 @login_required(login_url="cuentas/login/")
@@ -105,6 +104,23 @@ def new_student(request):
     return render(request, 'add_student.html', {'form': form})
 
 
+@login_required(login_url="cuentas/login/")
+def new_course(request):
+    if request.method == 'POST':
+        form = CourseCreationForm(request.POST)
+
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = CourseCreationForm()
+
+    return render(request, 'add_course.html', {'form': form})
+
+
 def new_user(request):
     if request.method == 'POST':
         form = MembersCreationForm(request.POST)
@@ -112,8 +128,6 @@ def new_user(request):
         if form.is_valid():
 
             if form.cleaned_data['type'] == 1:
-
-                print(form.cleaned_data['type'] + " profe")
 
                 CustomUser.objects.create_user(
                     first_name=form.cleaned_data['first_name'],
@@ -124,8 +138,6 @@ def new_user(request):
 
             elif form.cleaned_data['type'] == 2:
 
-                print(form.cleaned_data['type'] + "prece")
-
                 CustomUser.objects.create_staff_user(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
@@ -134,8 +146,6 @@ def new_user(request):
                 )
 
             else:
-
-                print(form.cleaned_data['type'])
 
                 CustomUser.objects.create_superuser(
                     first_name=form.cleaned_data['first_name'],
@@ -155,4 +165,4 @@ def new_user(request):
 @login_required(login_url="cuentas/login/")
 def training(request):
     # Capacitacion
-    return render(request, 'capacitaciondocente.html')
+    return render(request, 'teacher_training.html')
