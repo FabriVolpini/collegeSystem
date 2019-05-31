@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.utils.dateparse import parse_date
-
-from collegeApp.models import Comment, Grades, Professor, Preceptor, Principal
+from collegeApp.models import Comment, Grades, Professor, Course, CustomUser
 from django.http import HttpResponseRedirect
-from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, StudentCreationForm
+from .forms import CommentCreationForm, GradeCreationForm, MembersCreationForm, StudentCreationForm, CourseCreationForm, \
+    SubjectCreationForm, CategoryCreationForm
 
 
 @login_required(login_url="cuentas/login/")
@@ -17,8 +16,16 @@ def comments_history(request):
 @login_required(login_url="cuentas/login/")
 def academic_progress(request):
     # Progreso Academico
+    #asd = Course.
+    #Course.division.
+    # try:
+    #     division = Course.objects.
+    # Course.objects.get(division=)
+    #asd = Course.objects.filter(year="FIR")
+
+    course = Course.objects.all()
     grades = Grades.objects.all()
-    return render(request, 'academic_progress.html', {'grades': grades})
+    return render(request, 'academic_progress.html', {'grades': grades, 'course': course})
 
 
 @login_required(login_url="cuentas/login/")
@@ -56,13 +63,17 @@ def my_comments(request):
 @login_required(login_url="cuentas/login/")
 def update_grade(request):
     if request.method == 'POST':
-        form = UpdateGrade(request.POST)
+        form = GradeCreationForm(request.POST)
 
         if form.is_valid():
+            grade = form.save(commit=False)
+            grade.professor = request.user
+            grade.save()
+
             return HttpResponseRedirect('/')
 
     else:
-        form = UpdateGrade()
+        form = GradeCreationForm()
 
     return render(request, 'update_grade.html', {'form': form})
 
@@ -98,6 +109,57 @@ def new_student(request):
     return render(request, 'add_student.html', {'form': form})
 
 
+@login_required(login_url="cuentas/login/")
+def new_course(request):
+    if request.method == 'POST':
+        form = CourseCreationForm(request.POST)
+
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = CourseCreationForm()
+
+    return render(request, 'add_course.html', {'form': form})
+
+
+@login_required(login_url="cuentas/login/")
+def new_subject(request):
+    if request.method == 'POST':
+        form = SubjectCreationForm(request.POST)
+
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = SubjectCreationForm()
+
+    return render(request, 'add_subject.html', {'form': form})
+
+
+@login_required(login_url="cuentas/login/")
+def new_category(request):
+    if request.method == 'POST':
+        form = CategoryCreationForm(request.POST)
+
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = CategoryCreationForm()
+
+    return render(request, 'add_category.html', {'form': form})
+
+
 def new_user(request):
     if request.method == 'POST':
         form = MembersCreationForm(request.POST)
@@ -106,7 +168,7 @@ def new_user(request):
 
             if form.cleaned_data['type'] == 1:
 
-                Professor.objects.create_user(
+                CustomUser.objects.create_user(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],
@@ -115,7 +177,7 @@ def new_user(request):
 
             elif form.cleaned_data['type'] == 2:
 
-                Preceptor.objects.create_staff_user(
+                CustomUser.objects.create_staff_user(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],
@@ -124,7 +186,7 @@ def new_user(request):
 
             else:
 
-                Principal.objects.create_superuser(
+                CustomUser.objects.create_superuser(
                     first_name=form.cleaned_data['first_name'],
                     last_name=form.cleaned_data['last_name'],
                     email=form.cleaned_data['email'],

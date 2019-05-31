@@ -8,8 +8,13 @@ urlpatterns = [
     path('lista/', views.student_list, name='lista'),
     path('calificaciones/', views.academic_progress, name='marks'),
     path('perfil/', views.profile, name='profile'),
-    path('subircalificaciones/', views.update_grade, name='upgrade_note'),
-    path('crearcomentario/', views.create_comment, name='create_comment'),
-    path('nuevoUsuario/', views.new_user, name='newUser'),
-    path('agregarAlumno/', views.new_student, name='add_student')
+    path('subir-calificaciones/', views.update_grade, name='upgrade_note'),
+    path('crear-comentario/', views.create_comment, name='create_comment'),
+    path('nuevo-usuario/', views.new_user, name='newUser'),
+    path('agregar-alumno/', views.new_student, name='add_student'),
+    path('capacitacion/', views.training, name='training'),
+    path('agregar-curso/', views.new_course, name='newCourse'),
+    path('agregar-materia/', views.new_subject, name='newSubject'),
+    path('agregar-categoria/', views.new_category, name='newCategory')
+
 ]

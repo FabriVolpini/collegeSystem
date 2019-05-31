@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput
-from .models import CustomUser, Comment, Student
+from .models import CustomUser, Comment, Student, Course, Grades, Subject, Category
 from django import forms
 
 

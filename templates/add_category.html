@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Crear comentario{%  endblock %}
+{% block title %}Agregar Categoria{%  endblock %}
 
 {% block form %}
     <div class="card text-center border-dark mb-3">
-        <form action="{% url 'create_comment' %}"  method="post">
+        <form action="{% url 'newCategory' %}"  method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
