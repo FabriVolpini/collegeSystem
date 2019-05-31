@@ -5,19 +5,8 @@
     <div class="card text-center border-dark mb-3">
         <form action="{% url 'create_comment' %}"  method="post">
             {% csrf_token %}
-<<<<<<< HEAD
-                <render_field>
-                     {{ form.as_p }}
-                </render_field>
-            <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
-=======
-
             {{ form.as_p }}
-
             <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
-
-
->>>>>>> e331a5b007ab4cdc3efb6cf57c7d741376146b03
         </form>
     </div>
 {% endblock %}

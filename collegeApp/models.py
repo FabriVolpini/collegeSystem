@@ -3,12 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
-<<<<<<< HEAD
-from .managers import SoftDeletionManager, CustomUserManager, CommentsManager
-from django.forms import ModelForm
-=======
 from .managers import SoftDeletionManager, CustomUserManager
->>>>>>> e331a5b007ab4cdc3efb6cf57c7d741376146b03
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -127,7 +122,7 @@ class Professor(CustomUser, SoftDeletionModel):
 
 
 class Student(SoftDeletionModel):
-    id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key=True)
     first_name = models.CharField(
         max_length=50,
         blank=False,
@@ -257,4 +252,3 @@ class Presence(SoftDeletionModel):
 
     def __str__(self):
         return "%s %s %s" % (self.date, self.student, self.presence)
-

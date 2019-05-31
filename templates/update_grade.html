@@ -4,15 +4,17 @@
     {% block title %}SubirCalificacion{% endblock %}
 
 {% block form %}
-<div class="card text-center border-dark mb-3">
+<div class="card text-center border-dark mb-4">
   <form action="{% url 'upgrade_note' %}"  method="post">
         <br>
+        {% csrf_token %}
         {% for field in form %}
-           {% csrf_token %}
-            <div class="field"></div>
-            {{ form.as_p }}
+            <div class="field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
         {% endfor %}
-      <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
+      <button class="btn btn-primary userbtn" type="submit" value="Guardar">Guardar</button>
   </form>
 </div>
 {% endblock %}

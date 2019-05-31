@@ -18,6 +18,10 @@ label{
     margin-left: 0.5em;
 }
 
+.field{
+    margin-bottom: 3em;
+}
+
 card{
     width: 18rem;
 }
