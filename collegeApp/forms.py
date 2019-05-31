@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput
-from .models import CustomUser, Category, Course
+from .models import CustomUser, Student
 from django import forms
 
 
@@ -54,6 +54,7 @@ class UpdateGrade(forms.Form):
 
 class assistance(forms.Form):
     presence = forms.BooleanField(widget=forms.CheckboxInput)
+
 
 # class InitForm(forms.Form):
 #     name = forms.CharField()

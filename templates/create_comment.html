@@ -5,9 +5,9 @@
     <div class="card text-center border-dark mb-3">
         <form action="{% url 'create_comment' %}"  method="post">
             {% csrf_token %}
-
-                 {{ form.as_p }}
-
+                <render_field>
+                     {{ form.as_p }}
+                </render_field>
             <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
         </form>
     </div>

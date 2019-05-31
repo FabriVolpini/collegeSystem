@@ -44,8 +44,12 @@
                 <td>{{ student.first_name }}</td>
                  <td>{{ student.last_name }}</td>
                 <td>
-                        {% csrf_token %}
-                        {{ form.as_p }}
+                    <label>
+                        <input type="checkbox"/>
+                        <span>Presente</span>
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                    </label>
                  </td>
             </tr>
              {% endfor %}

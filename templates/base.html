@@ -35,7 +35,7 @@
 </nav>
 <br>
 
-{% if CustomUser.is_staff == True %}
+{% if user.is_staff == True %}
     {% if Professor  %}
         {% block professor %}
         {% endblock %}
