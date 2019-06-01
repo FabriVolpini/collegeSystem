@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from collegeApp.models import Comment, Grades, Professor, Course, CustomUser
+from collegeApp.models import Comment, Grades, Professor, Course, CustomUser, Student
 from django.http import HttpResponseRedirect
-from .forms import CommentCreationForm, UpdateGrade, MembersCreationForm, StudentCreationForm, CourseCreationForm
+from .forms import CommentCreationForm, GradeCreationForm, MembersCreationForm, StudentCreationForm, CourseCreationForm, \
+    SubjectCreationForm, CategoryCreationForm
 
 
 @login_required(login_url="cuentas/login/")
@@ -63,7 +64,7 @@ def my_comments(request):
 @login_required(login_url="cuentas/login/")
 def update_grade(request):
     if request.method == 'POST':
-        form = UpdateGrade(request.POST)
+        form = GradeCreationForm(request.POST)
 
         if form.is_valid():
             grade = form.save(commit=False)
@@ -73,7 +74,7 @@ def update_grade(request):
             return HttpResponseRedirect('/')
 
     else:
-        form = UpdateGrade()
+        form = GradeCreationForm()
 
     return render(request, 'update_grade.html', {'form': form})
 
@@ -126,6 +127,40 @@ def new_course(request):
     return render(request, 'add_course.html', {'form': form})
 
 
+@login_required(login_url="cuentas/login/")
+def new_subject(request):
+    if request.method == 'POST':
+        form = SubjectCreationForm(request.POST)
+
+        if form.is_valid():
+            student = form.save(commit=False)
+            student.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = SubjectCreationForm()
+
+    return render(request, 'add_subject.html', {'form': form})
+
+
+@login_required(login_url="cuentas/login/")
+def new_category(request):
+    if request.method == 'POST':
+        form = CategoryCreationForm(request.POST)
+
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = CategoryCreationForm()
+
+    return render(request, 'add_category.html', {'form': form})
+
+
 def new_user(request):
     if request.method == 'POST':
         form = MembersCreationForm(request.POST)
@@ -168,6 +203,19 @@ def new_user(request):
 
 
 @login_required(login_url="cuentas/login/")
-def training(request):
-    # Capacitacion
-    return render(request, 'teacher_training.html')
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, 'assistance.html', {'students': students})
+
+
+@login_required(login_url="cuentas/login/")
+def assistance(request):
+    if request.method == 'POST':  # si el usuario está enviando el formulario con datos
+        form = AssistanceForm(request.POST)  # Bound form
+        if form.is_valid():
+            presence = form.save()  # Guardar los datos en la base de datos
+        return HttpResponseRedirect(reverse('lista'))
+    else:
+        form = AssistanceForm()  # Unbound form
+    return render(request, 'assistance.html', {'form': form})
+

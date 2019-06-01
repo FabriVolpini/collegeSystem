@@ -19,10 +19,7 @@
         </button>
         <p class="text-light">
             {% if user.is_authenticated %}
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                 <a class="navbar-brand" href="#" ><span class="glyphicon glyphicon-off" rel="#" ></span></a>
-                <a href="{% url 'profile' %}" class="text-light">{{ user.first_name }}</a>
-                <a href="/cuentas/logout/">Log Out.</a>
+                <a href="{% url 'profile'  %}" class="text-light">{{ user.first_name }}</a>
             {% endif %}
         </p>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -52,14 +49,10 @@
     </nav>
     <br>
 
-    {% if CustomUser.is_staff == True %}
-        {% if Professor  %}
-            {% block professor %}
-            {% endblock %}
-        {% else %}
-            {% block preceptor %}
-            {% endblock %}
-        {% endif %}
+{% if user.is_staff == True %}
+    {% if Professor  %}
+        {% block professor %}
+        {% endblock %}
     {% else %}
         {% block director %}
         {% endblock %}
@@ -75,10 +68,10 @@
         {% endblock %}
     </div>
 
-    <div class="container col-4">
-        {% block form %}
-        {% endblock %}
-    </div>
+<div class="container col-6" id="userbox">
+    {% block form %}
+    {% endblock %}
+</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
