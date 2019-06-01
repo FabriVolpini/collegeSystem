@@ -12,9 +12,9 @@ class MembersCreationForm(forms.Form):
         (3, "Director")
     )
 
-    first_name = forms.CharField(label='Nombre', max_length=100)
-    last_name = forms.CharField(label='Apellido', max_length=100)
-    email = forms.EmailField()
+    first_name = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control'})), label='Nombre')
+    last_name = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control'})), label='Apellido')
+    email = forms.EmailField(widget=forms.EmailField)
     password = forms.CharField(label='Contraseña', widget=PasswordInput)
     type = forms.ChoiceField(choices=TYPE_CHOICES)
 
@@ -48,7 +48,10 @@ class StudentCreationForm(forms.ModelForm):
         }
 
 
-class UpdateGrade(forms.Form):
+class GradeCreationForm(forms.ModelForm):
+    class Meta:
+        model = Grades
+        exclude = ['deleted_at']
 
     TYPE_CHOICES = (
         (1, "1"),
@@ -69,10 +72,30 @@ class UpdateGrade(forms.Form):
         (3, "Director")
     )
 
-    name = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control'})), label='Nombre del alumno:')
+    name = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control'})), label='Nombre del alumno')
     surname = forms.CharField(widget=(forms.TextInput(attrs={'class': 'form-control'})), label='Apellido del alumno')
     subject = forms.ChoiceField(choices=TYPE_SUBJECT_CHOICES, widget=forms.Select(attrs={
         'class': 'form-control'}), required=True, label='Materia')
     grade = forms.ChoiceField(choices=TYPE_CHOICES, widget=forms.Select(attrs={
         'class': 'form-control'}), required=True, label='Nota')
 
+
+class CourseCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Course
+        exclude = ['deleted_at']
+
+
+class SubjectCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Subject
+        exclude = ['deleted_at']
+
+
+class CategoryCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        exclude = ['deleted_at']

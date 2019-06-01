@@ -207,6 +207,7 @@ def student_list(request):
     return render(request, 'assistance.html', {'students': students})
 
 
+@login_required(login_url="cuentas/login/")
 def assistance(request):
     if request.method == 'POST':  # si el usuario está enviando el formulario con datos
         form = AssistanceForm(request.POST)  # Bound form
@@ -216,3 +217,4 @@ def assistance(request):
     else:
         form = AssistanceForm()  # Unbound form
     return render(request, 'assistance.html', {'form': form})
+
