@@ -3,11 +3,13 @@
 {% block title %}Agregar Materia{%  endblock %}
 
 {% block form %}
-    <div class="card text-center border-dark mb-3">
+    <div class="card text-center border-dark mb-3 col-md-8">
         <form action="{% url 'newSubject' %}"  method="post">
             {% csrf_token %}
             {{ form.as_p }}
+            <div class="card-footer">
             <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
+            </div>
         </form>
     </div>
 {% endblock %}

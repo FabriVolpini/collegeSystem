@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from collegeApp.models import Comment, Grades, Professor, Course, CustomUser
+from collegeApp.models import Comment, Grades, Professor, Course, CustomUser, Student
 from django.http import HttpResponseRedirect
 from .forms import CommentCreationForm, GradeCreationForm, MembersCreationForm, StudentCreationForm, CourseCreationForm, \
     SubjectCreationForm, CategoryCreationForm
