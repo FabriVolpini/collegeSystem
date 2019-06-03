@@ -105,6 +105,7 @@ class CourseCreationForm(forms.ModelForm):
             'shift': forms.TextInput(attrs={'class': 'col'})
         }
 
+
 class SubjectCreationForm(forms.ModelForm):
     class Meta:
         model = Subject
