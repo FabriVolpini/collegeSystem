@@ -27,15 +27,15 @@
                 <li class="nav-item">
 
                     {% if user.is_superuser %}
-                        <a href="/crearcomentario/" class="nav-link">Crear nota</a>
+                        <a href="/crear-comentario/" class="nav-link">Crear nota</a>
                         <a href="/" class="nav-link">Ver notas</a>
-                        <a href="/asistencia/" class="nav-link">Ver asistencias</a>
+                        <a href="/ver-asistencia/" class="nav-link">Ver asistencias</a>
                         <a href="/calificaciones/" class="nav-link">Ver rendimiento académico</a>
                     {% elif user.is_staff %}
                         <a href="create_comment.html" class="nav-link">Crear nota</a>
                         <a href="my_comments.html" class="nav-link">Ver mis notas</a>
                         <a href="assistance.html" class="nav-link">Tomar asistencia</a>
-                        <a href="see_assistance.html" class="nav-link">Ver asistencias</a>
+                        <a href="ver-asistencia/" class="nav-link">Ver asistencias</a>
                     {% else %}
                         <a href="create_comment.html" class="nav-link">Crear nota</a>
                         <a href="my_comments.html" class="nav-link">Ver mis notas</a>
@@ -57,11 +57,14 @@
         {% block director %}
         {% endblock %}
     {% endif %}
+    {% endif %}
 
+    <div class="container col-10">
     <article>
         {% block content %}
         {% endblock %}
     </article>
+    </div>
 
     <div class="container col-4">
         {% block body %}
