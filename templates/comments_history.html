@@ -10,7 +10,7 @@
         </div>
         <div class="card-footer">
             <small class="text-muted">{{comment.date}}</small>
-            <small class="text-muted">{{comment.categories}}</small>
+            <small class="text-muted">{% for category in comment.categories.all.values %} {{ category.name }} {% endfor %}</small>
         </div>
     </div>
     {% endfor %}
