@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Información del Alumno{% endblock %}
+
+{% block content %}
+    <div class="card border-dark mb-3 col-3">
+        <div class="card-header h3">
+            {{ student.first_name }}, {{ student.last_name }}</div>
+            <div class="card-body">
+                <h5 class="card-title">Fecha de nacimiento</h5>
+                     <p class="card-text">{{ student.birthday }}</p>
+                <h5 class="card-title">Curso</h5>
+                    <p class="card-text">{{ student.course}}</p>
+                <h5 class="card-title">Números de emergencia</h5>
+                    {% for phone in student.phone.all.values %}
+                        <p class="card-text">{{ phone.number }} </p>
+                    {% endfor %}
+            </div>
+    </div>
+{% endblock %}
