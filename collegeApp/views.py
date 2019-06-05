@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from collegeApp.models import Comment, Grades, Professor, Course, CustomUser, Student
+from collegeApp.models import Comment, Grades, Professor, Course, CustomUser, Student, Phone
 from django.http import HttpResponseRedirect
 from .forms import CommentCreationForm, GradeCreationForm, MembersCreationForm, StudentCreationForm, CourseCreationForm, \
     SubjectCreationForm, CategoryCreationForm
@@ -17,12 +17,12 @@ def comments_history(request):
 @login_required(login_url="cuentas/login/")
 def academic_progress(request):
     # Progreso Academico
-    #asd = Course.
-    #Course.division.
+    # asd = Course.
+    # Course.division.
     # try:
     #     division = Course.objects.
     # Course.objects.get(division=)
-    #asd = Course.objects.filter(year="FIR")
+    # asd = Course.objects.filter(year="FIR")
 
     course = Course.objects.all()
     grades = Grades.objects.all()
@@ -219,3 +219,15 @@ def assistance(request):
         form = AssistanceForm()  # Unbound form
     return render(request, 'assistance.html', {'form': form})
 
+
+@login_required(login_url="cuentas/login/")
+def student_info(request, pk):
+    student = Student.objects.get(id=pk)
+        # .filter(id=pk)\
+        # .select_related("course")
+    # student.phone.number
+    # student.phone.
+    # phone = Phone.objects.filter(student=student)
+    # # p
+    # phone = Phone.objects.get(student=student)
+    return render(request, 'student_info.html', {'student': student})

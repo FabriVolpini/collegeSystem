@@ -166,8 +166,8 @@ class Comment(SoftDeletionModel):
 
 class Phone(SoftDeletionModel):
     id = models.AutoField(primary_key = True)
-    number = models.CharField(max_length=50, blank = False, null = False)
-    student = models.ForeignKey(Student, on_delete = models.CASCADE, related_name = "phone")
+    number = models.CharField(max_length=50, blank=False, null=False)
+    student = models.ForeignKey(Student, on_delete = models.CASCADE, related_name="phone")
 
     def __str__(self):
         return self.number
