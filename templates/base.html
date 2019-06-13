@@ -31,12 +31,10 @@
                         <a href="{% url 'marks' %}" class="nav-link">Ver Rendimiento Académico</a>
                     {% elif user.is_staff %}
                         <a href="{% url 'create_comment' %}" class="nav-link">Crear nota</a>
-                        <a href="{% url 'my_comments' %}" class="nav-link">Ver mis Notas</a>
                         <a href="assistance.html" class="nav-link">Tomar asistencia</a>
                         <a href="/ver-asistencia/" class="nav-link">Ver Asistencias</a>
                     {% else %}
                         <a href="{% url 'create_comment' %}" class="nav-link">Crear nota</a>
-                        <a href="my_comments.html" class="nav-link">Ver mis notas</a>
                         <a href="update_grade.html" class="nav-link">Subir calificaciones</a>
                         <a href="academic_progress.html" class="nav-link">Ver progreso académico</a>
                     {% endif %}
