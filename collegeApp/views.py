@@ -11,7 +11,8 @@ def comments_history(request):
     user = request.user
     # Historial de notas
     comments = Comment.objects.all()
-    return render(request, 'comments_history.html', {'comments': comments, 'user': user})
+
+    return render(request, 'comments_history.html', {'comments': comments, 'user': user,})
 
 
 @login_required(login_url="cuentas/login/")
@@ -53,12 +54,8 @@ def create_comment(request):
     return render(request, 'create_comment.html', {'form': form})
 
 
-@login_required(login_url="cuentas/login/")
-def my_comments(request):
-    user = request.user
-    comments = Comment.objects.filter(author=user)
 
-    return render(request, 'my_comments.html', {'comments': comments})
+
 
 
 @login_required(login_url="cuentas/login/")
@@ -82,15 +79,18 @@ def update_grade(request):
 @login_required(login_url="cuentas/login/")
 def profile(request):
     user = request.user
+    comments = Comment.objects.filter(author=user)
 
-    if user.is_superuser:
-        return render(request, 'accounts/director_profile.html')
+    return render(request, 'accounts/profile.html', {'comments': comments, 'user': user})
 
-    elif user.is_staff:
-        return render(request, 'accounts/preceptor_profile.html')
-
-    else:
-        return render(request, 'accounts/teacher_profile.html')
+    # if user.is_superuser:
+    #     return render(request, 'accounts/director_profile.html', {'comments': comments, 'user': user})
+    #
+    # elif user.is_staff:
+    #     return render(request, 'accounts/preceptor_profile.html', {'comments': comments})
+    #
+    # else:
+    #     return render(request, 'accounts/teacher_profile.html', {'comments': comments})
 
 
 @login_required(login_url="cuentas/login/")

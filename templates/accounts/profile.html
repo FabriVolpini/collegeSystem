@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{%block title%}Perfil{% endblock %}
+
+{% if user.is_superuser %}
+    {% block director %}
+        director
+
+        <br>
+        <br>
+        HACER QUE SE PUEDA EDITAR EL PERFIL PERSONAL
+
+        <div class="card-columns">
+        {% for comment in comments %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{comment.student}}</h5>
+                    <p class="card-text">{{comment.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{comment.date}}</small>
+                    <small class="text-muted">{% for category in comment.categories.all.values %} {{ category.name }} {% endfor %} </small>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endblock %}
+
+{% elif user.is_staff %}
+    {% block preceptor %}
+         preceptor
+         HACER QUE SE PUEDA EDITAR EL PERFIL PERSONAL
+
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Mis datos</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Cursos a cargo</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+{% else %}
+    {% block professor %}
+        profesor
+        HACER QUE SE PUEDA EDITAR EL PERFIL PERSONAL
+
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Mis datos</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Cursos a cargo</h6>
+                        <li>
+                            Algo
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+{% endif %}

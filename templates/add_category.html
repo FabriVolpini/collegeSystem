@@ -7,7 +7,6 @@
         <form action="{% url 'newCategory' %}"  method="post">
             {% csrf_token %}
             {{ form.as_p }}
-
             <div class="card-footer">
                 <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
             </div>
