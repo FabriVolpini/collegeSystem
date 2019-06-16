@@ -12,7 +12,7 @@ def comments_history(request):
     # Historial de notas
     comments = Comment.objects.all()
 
-    return render(request, 'comments_history.html', {'comments': comments, 'user': user,})
+    return render(request, 'comments_history.html', {'comments': comments, 'user': user})
 
 
 @login_required(login_url="cuentas/login/")
@@ -52,10 +52,6 @@ def create_comment(request):
         form = CommentCreationForm()
 
     return render(request, 'create_comment.html', {'form': form})
-
-
-
-
 
 
 @login_required(login_url="cuentas/login/")
@@ -231,3 +227,4 @@ def student_info(request, pk):
     # # p
     # phone = Phone.objects.get(student=student)
     return render(request, 'student_info.html', {'student': student})
+
