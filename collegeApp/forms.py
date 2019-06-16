@@ -11,16 +11,19 @@ class MembersCreationForm(forms.Form):
         (3, "Director")
     )
 
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control col-6'}), label='Nombre')
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label='Apellido')
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label='Email')
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label='Contraseña')
-    type = forms.ChoiceField(choices=TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}), label='Tipo')
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}), label='Nombre')
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}), label='Apellido')
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}), label='Email')
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}), label='Contraseña')
+    type = forms.ChoiceField(choices=TYPE_CHOICES, widget=forms.Select(attrs={'class': 'col-lg-8 offset-md-2'}), label='Tipo')
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
+        first_name = forms.CharField(label="Nombre")
+        last_name = forms.CharField(label="Apellido")
+        email = forms.EmailField(label="Email")
         fields = ('email',)
 
 
@@ -40,9 +43,9 @@ class CommentCreationForm(forms.ModelForm):
             'description': 'Descripción'
         }
         widgets = {
-            'student': forms.TextInput(attrs={'class': 'col-6'}),
-            'categories': forms.Select(attrs={'class': 'custom-select col-4'}),
-            'description': forms.Textarea(attrs={'class': 'col'})
+            'student': forms.TextInput(attrs={'class': 'col-4 border border-secondary'}),
+            'categories': forms.Select(attrs={'class': 'custom-select col-4 border border-secondary'}),
+            'description': forms.Textarea(attrs={'class': 'col w-80 p-3 border border-secondary'})
         }
 
 
@@ -57,10 +60,10 @@ class StudentCreationForm(forms.ModelForm):
             'course': 'Curso'
         }
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control col'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control col'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control col-lg-9 offset-md-2'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control col-lg-9 offset-md-2'}),
             'birthday': forms.DateTimeInput(attrs={'class': 'custom-select col-sm-5'}),
-            'course': forms.Select(attrs={'class': 'custom-select my-1 mr-sm-2 col'}, )
+            'course': forms.Select(attrs={'class': 'custom-select my-1 mr-sm-2 col-lg-9 offset-md-1'}, )
         }
 
 
@@ -83,9 +86,9 @@ class GradeCreationForm(forms.ModelForm):
         }
 
         widgets = {
-            'student': forms.Select(attrs={'class': 'form-control col'}),
-            'subject': forms.Select(attrs={'class': 'custom-select col-md-6'}),
-            'grade': forms.TextInput(attrs={'class': 'form-control col-2'})
+            'student': forms.Select(attrs={'class': 'form-control col-lg-10 offset-md-2'}),
+            'subject': forms.Select(attrs={'class': 'custom-select col-lg-10 offset-md-2'}),
+            'grade': forms.TextInput(attrs={'class': 'form-control col-2 offset-md-5'})
         }
 
 
@@ -100,9 +103,9 @@ class CourseCreationForm(forms.ModelForm):
         }
 
         widgets = {
-            'year': forms.TextInput(attrs={'class': 'col'}),
-            'division': forms.TextInput(attrs={'class': 'col'}),
-            'shift': forms.TextInput(attrs={'class': 'col'})
+            'year': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'division': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'shift': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'})
         }
 
 
@@ -116,8 +119,8 @@ class SubjectCreationForm(forms.ModelForm):
         }
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'col'}),
-            'subject': forms.Textarea(attrs={'class': 'col'})
+            'name': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'subject': forms.Textarea(attrs={'class': 'form-control col-lg-8 offset-md-2'})
         }
 
 
@@ -131,7 +134,7 @@ class CategoryCreationForm(forms.ModelForm):
         }
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control col'}),
+            'name': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
             'subject': forms.Textarea(attrs={'class': 'card-body'})
         }
 
