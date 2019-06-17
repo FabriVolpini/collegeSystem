@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Teléfono{%  endblock %}
+
+{% block form %}
+    <div class="card text-center border-dark mb-3 col-8">
+    <br>
+        <form action="{% url 'newPhone' %}"  method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+          <div class="card-footer">
+                <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

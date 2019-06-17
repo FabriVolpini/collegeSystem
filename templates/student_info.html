@@ -17,4 +17,22 @@
                     {% endfor %}
             </div>
     </div>
+
+     <div class="container ml-md-auto">
+              <div class="card-columns">
+              {% for comment in comments %}
+                <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{comment.student}}</h5>
+                    <p class="card-text">{{comment.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{comment.date}}</small>
+                    <small class="text-muted">{% for category in comment.categories.all.values %} {{ category.name }}
+                    {% endfor %} </small>
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+          </div>
 {% endblock %}
