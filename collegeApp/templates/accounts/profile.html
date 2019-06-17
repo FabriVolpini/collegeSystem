@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+    {% block title %}MisNotas{% endblock %}
+
+{% block content %}
+    {% for comment in comments %}
+
+        <article>
+            <div class="card-deck">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"> Estudiante: {{ comment.student}}</h5>
+                  <p class="card-text"> Descripcion: {{ comment.description }}</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted"> Fecha: {{comment.date}}</small>
+                  <small class="text-muted"> Categorias: {% for category in comment.categories.all.values %} {{ category.name }} {% endfor %}</small>
+                </div>
+              </div>
+            </div>
+        </article>
+
+    {% endfor %}
+{% endblock %}

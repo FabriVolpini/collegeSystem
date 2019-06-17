@@ -1,12 +1,29 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser
+from django.forms import PasswordInput, Textarea
+from .models import CustomUser, Comment, Student, Course, Grades, Subject, Category
 from django import forms
-from django.db import models
+
+
+class MembersCreationForm(forms.Form):
+    TYPE_CHOICES = (
+        (1, "Profesor"),
+        (2, "Preceptor"),
+        (3, "Director")
+    )
+
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}), label='Nombre')
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}), label='Apellido')
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}), label='Email')
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}), label='Contraseña')
+    type = forms.ChoiceField(choices=TYPE_CHOICES, widget=forms.Select(attrs={'class': 'col-lg-8 offset-md-2'}), label='Tipo')
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm):
         model = CustomUser
+        first_name = forms.CharField(label="Nombre")
+        last_name = forms.CharField(label="Apellido")
+        email = forms.EmailField(label="Email")
         fields = ('email',)
 
 
@@ -16,55 +33,111 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('email',)
 
 
-class CommentCreation(forms.Form):
-    name = forms.CharField(label='Nombre del Alumno', max_length=100)
-    surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
-    year = forms.ChoiceField(label='Año', widget=forms.Select(), required=True)
-    division = forms.ChoiceField(label='División', widget=forms.Select(), required=True)
-    category = forms.ChoiceField(label='Categoría', widget=forms.Select(), required=True)
-    description = forms.CharField(label='Descripción')
+class CommentCreationForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        exclude = ['deleted_at', 'date', 'author']
+        labels = {
+            'student': 'Alumno',
+            'categories': 'Categoría',
+            'description': 'Descripción'
+        }
+        widgets = {
+            'student': forms.Select(attrs={'class': 'custom-select col-4 border border-secondary'}),
+            'categories': forms.Select(attrs={'class': 'custom-select col-4 border border-secondary'}),
+            'description': forms.Textarea(attrs={'class': 'col w-80 p-3 border border-secondary'})
+        }
 
 
-class UpdateGrade(forms.Form):
-    name = forms.CharField(label='Nombre del Alumno', max_length=100)
-    surname = forms.CharField(label='Apellido del Alumno', max_length=100, required=100)
-    subject = forms.ChoiceField(label='Materia', widget=forms.Select(), required=True)
-    grade = forms.ChoiceField(label='Nota', widget=forms.Select(), required=True)
+class StudentCreationForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        exclude = ['deleted_at']
+        labels = {
+            'first_name': 'Nombres del alumno',
+            'last_name': 'Apellidos del alumno',
+            'birthday': 'Fecha de nacimiento',
+            'course': 'Curso'
+        }
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control col-lg-9 offset-md-2'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control col-lg-9 offset-md-2'}),
+            'birthday': forms.DateTimeInput(attrs={'class': 'custom-select col-sm-5'}),
+            'course': forms.Select(attrs={'class': 'custom-select my-1 mr-sm-2 col-lg-9 offset-md-1'}, )
+        }
 
 
+#  year = forms.ChoiceField(choices=TYPE_CHOICES_YEAR, widget=forms.Select(attrs={
+#    'class': 'form-control'}), required=True, label='Año')
+# division = forms.ChoiceField(choices=TYPE_CHOICES_DIVISION, widget=forms.Select(attrs={
+#    'class': 'form-control'}), required=True, label='División')
+# shift = forms.ChoiceField(choices=TYPE_CHOICES_YEAR, widget=forms.Select(attrs={
+#    'class': 'form-control'}), required=True, label='Turno')
 
-# class InitForm(forms.Form):
-#     name = forms.CharField()
-#     email = forms.EmailField()
-#     password = forms.CharField()
-#
-#     def clean_name(self):
-#         return "name_passed_value"
-#
-#     #Field validation
-#
-#     def clean_email(self):
-#         email_passed = self.cleaned_data.get("email")
-#         email_req = "yourdomain.com"
-#         if not email_req in email_passed:
-#             raise forms.ValidationError("Email inválido, intente de nuevo")
-#         return email_passed
-#
-#     def clean_password(self):
-#         password_passed = self.cleaned_data.get("password")
-#         password_req = "..."
-#         if not password_req in password_passed:
-#             raise forms.ValidationError("Contraseña inválida, intente de nuevo")
-#         return password_passed
-#
-#     #General validation
-#
-#     def clean(self):
-#         cleaned_data = super(UserForm, self).clean()
-#         email_passed = cleaned_data.get("email")
-#         email_req = "yourdomain.com"
-#         password_passed = cleaned_data.get("password")
-#         password_req = "..." #Ver con Agus
-#         if not email_req in email_passed:
-#             raise forms.ValidationError("Email o contraseña incorrectas")
-#         return email_passed
+
+class GradeCreationForm(forms.ModelForm):
+    class Meta:
+        model = Grades
+        exclude = ['deleted_at', 'professor']
+        labels = {
+            'student': 'Alumno',
+            'subject': 'Materia',
+            'grade': 'Nota'
+        }
+
+        widgets = {
+            'student': forms.Select(attrs={'class': 'form-control col-lg-10 offset-md-2'}),
+            'subject': forms.Select(attrs={'class': 'custom-select col-lg-10 offset-md-2'}),
+            'grade': forms.TextInput(attrs={'class': 'form-control col-2 offset-md-5'})
+        }
+
+
+class CourseCreationForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        exclude = ['deleted_at']
+        labels = {
+            'year': 'Año',
+            'division': 'División',
+            'shift': 'Turno'
+        }
+
+        widgets = {
+            'year': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'division': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'shift': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'})
+        }
+
+
+class SubjectCreationForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        exclude = ['deleted_at']
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripción'
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'subject': forms.Textarea(attrs={'class': 'form-control col-lg-8 offset-md-2'})
+        }
+
+
+class CategoryCreationForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        exclude = ['deleted_at']
+        labels = {
+            'name': 'Nombre',
+            'description': 'Descripción'
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'subject': forms.Textarea(attrs={'class': 'card-body'})
+        }
+
+# class UserLoginForm(form.Form):
+#    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label='Email')
+#    password = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label='Contraseña')

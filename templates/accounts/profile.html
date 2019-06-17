@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{%block title%}Perfil{% endblock %}
+
+{% if user.is_superuser %}
+    {% block director %}
+    <div class="card border-dark mb-3 col-3">
+        <div class="card-header h3">
+            {{ user.first_name }}, {{ user.last_name }}</div>
+            <div class="card-body">
+                <h5 class="card-title">Mail:</h5>
+                     <p class="card-text">{{ user.email }}</p>
+                 <h5 class="card-title">Permiso de:</h5>
+                    <p class="card-text">Director/a</p>
+                <h5 class="card-title">Fecha de nacimiento</h5>
+                     <p class="card-text">{{ user.birthday }}</p>
+            </div>
+    </div>
+         <div class="card-columns">
+        {% for comment in comments %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{comment.student}}</h5>
+                    <p class="card-text">{{comment.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{comment.date}}</small>
+                    <small class="text-muted">{% for category in comment.categories.all.values %} {{ category.name }}
+                    {% endfor %} </small>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+{% endblock %}
+
+
+{% elif user.is_staff %}
+    {% block preceptor %}
+    <div class="card border-dark mb-3 col-3">
+        <div class="card-header h3">
+            {{ user.first_name }}, {{ user.last_name }}</div>
+            <div class="card-body">
+                <h5 class="card-title">Mail:</h5>
+                     <p class="card-text">{{ user.email }}</p>
+                 <h5 class="card-title">Permiso de:</h5>
+                    <p class="card-text">Preceptor/a</p>
+                <h5 class="card-title">Fecha de nacimiento</h5>
+                     <p class="card-text">{{ user.birthday }}</p>
+            </div>
+    </div>
+         <div class="card-columns">
+        {% for comment in comments %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{comment.student}}</h5>
+                    <p class="card-text">{{comment.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{comment.date}}</small>
+                    <small class="text-muted">{% for category in comment.categories.all.values %} {{ category.name }}
+                    {% endfor %} </small>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+{% endblock %}
+
+{% else %}
+    {% block professor %}
+    <div class="card border-dark mb-3 col-3">
+        <div class="card-header h3">
+            {{ user.first_name }}, {{ user.last_name }}</div>
+            <div class="card-body">
+                <h5 class="card-title">Mail:</h5>
+                     <p class="card-text">{{ user.email }}</p>
+                 <h5 class="card-title">Permiso de:</h5>
+                    <p class="card-text">Profesor/a</p>
+                 <h5 class="card-title">Fecha de nacimiento</h5>
+                     <p class="card-text">{{ user.birthday }}</p>
+            </div>
+    </div>
+         <div class="card-columns">
+        {% for comment in comments %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{comment.student}}</h5>
+                    <p class="card-text">{{comment.description }}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{comment.date}}</small>
+                    <small class="text-muted">{% for category in comment.categories.all.values %} {{ category.name }}
+                    {% endfor %} </small>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+{% endblock %}
+{% endif %}

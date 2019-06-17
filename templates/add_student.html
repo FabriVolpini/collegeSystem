@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Alumno{%  endblock %}
+
+{% block form %}
+    <div class="card text-center col-sm-7 border-dark">
+        <form action="{% url 'add_student' %}"  method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+           <div class="card-footer">
+               <button class="btn btn-primary" type="submit" value="Guardar">Guardar</button>
+           </div>
+        </form>
+    </div>
+{% endblock %}

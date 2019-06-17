@@ -1,13 +1,19 @@
 from django.urls import path
 from . import views
-
 urlpatterns = [
-    path('misnotas/', views.my_comments),
     path('', views.comments_history, name='comments_list'),
-    path('asistencia/', views.see_assistance, name='assistance_list'),
+    path('perfil/', views.profile, name='profile'),
+    path('ver-asistencia/', views.see_assistance, name='ver_asistencia'),
+    path('lista/', views.student_list, name='lista'),
     path('calificaciones/', views.academic_progress, name='marks'),
-    path('perfil/', views.base),
-    path('subircalificaciones', views.update_grade, name='upgrade_note'),
-    # path('',views.create_comment, name = 'comment_creation')
-    path('crearcomentario', views.create_comment, name='create_comment'),
+    path('subir-calificaciones/', views.update_grade, name='upgrade_grade'),
+    path('crear-comentario/', views.create_comment, name='create_comment'),
+    path('nuevo-usuario/', views.new_user, name='newUser'),
+    path('agregar-alumno/', views.new_student, name='add_student'),
+    path('agregar-curso/', views.new_course, name='newCourse'),
+    path('agregar-materia/', views.new_subject, name='newSubject'),
+    path('agregar-categoria/', views.new_category, name='newCategory'),
+    path('informacion-alumno/<int:pk>', views.student_info, name='studentInfo')
+
 ]
+

@@ -4,19 +4,21 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 
-
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, first_name, last_name, email, password, **extra_fields):
         if not email:
             raise ValueError(_('The Email must be set'))
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
+        user.first_name = first_name
+        user.last_name = last_name
         user.set_password(password)
         user.save()
+
         return user
 
-    def create_staff_user(self, email, password, **extra_fields):
+    def create_staff_user(self, first_name, last_name, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_active', True)
@@ -25,9 +27,9 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_staff = True'))
         if extra_fields.get('is_superuser') is True:
             raise ValueError(_("Superuser mustn't have is_superuser = True"))
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(first_name, last_name, email, password, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, first_name, last_name, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
@@ -36,7 +38,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_staff = True'))
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser = True'))
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(first_name, last_name, email, password, **extra_fields)
 
 
 class SoftDeletionManager(models.Manager):
@@ -65,3 +67,7 @@ class SoftDeletionQuerySet(QuerySet):
 
     def dead(self):
         return self.exclude(deleted_at=None)
+
+class ProfessorManager(models.Manager):
+    def create_professor(self):
+        return

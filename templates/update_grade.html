@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Subir Calificacion{% endblock %}
+
+{% block form %}
+<div class="card text-center align-items-center border-dark col-sm-8">
+    <form action="{% url 'upgrade_grade' %}"  method="post">
+        <br>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="card-footer">
+            <button class="btn btn-primary userbtn" type="submit" value="Guardar">Guardar</button>
+        </div>
+  </form>
+</div>
+{% endblock %}
