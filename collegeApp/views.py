@@ -12,7 +12,7 @@ def comments_history(request):
     # Historial de notas
     comments = Comment.objects.all()
 
-    return render(request, 'comments_history.html', {'comments': comments, 'user': user,})
+    return render(request, 'comments_history.html', {'comments': comments, 'user': user})
 
 
 @login_required(login_url="cuentas/login/")
@@ -230,4 +230,14 @@ def student_info(request, pk):
     # phone = Phone.objects.filter(student=student)
     # # p
     # phone = Phone.objects.get(student=student)
-    return render(request, 'student_info.html', {'student': student})
+    comments = Comment.objects.filter(student=student.id)
+    return render(request, 'student_info.html', {'student': student, 'comments': comments})
+
+
+
+
+#     user = request.user
+#     # Historial de notas
+#     comments = Comment.objects.all()
+#
+#     return render(request, 'comments_history.html', {'comments': comments

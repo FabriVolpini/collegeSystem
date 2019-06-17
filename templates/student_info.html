@@ -3,18 +3,42 @@
 {% block title %}Información del Alumno{% endblock %}
 
 {% block content %}
-    <div class="card border-dark mb-3 col-3">
-        <div class="card-header h3">
-            {{ student.first_name }}, {{ student.last_name }}</div>
-            <div class="card-body">
-                <h5 class="card-title">Fecha de nacimiento</h5>
-                     <p class="card-text">{{ student.birthday }}</p>
-                <h5 class="card-title">Curso</h5>
-                    <p class="card-text">{{ student.course}}</p>
-                <h5 class="card-title">Números de emergencia</h5>
-                    {% for phone in student.phone.all.values %}
-                        <p class="card-text">{{ phone.number }} </p>
+
+
+
+
+                <div class="card border-dark mb-3 col-3">
+                    <div class="card-header h3"> {{ student.first_name }}, {{ student.last_name }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Fecha de nacimiento</h5>
+                        <p class="card-text">{{ student.birthday }}</p>
+                        <h5 class="card-title">Curso</h5>
+                        <p class="card-text">{{ student.course}}</p>
+                        <h5 class="card-title">Números de emergencia</h5>
+                        {% for phone in student.phone.all.values %}
+                            <p class="card-text">{{ phone.number }} </p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                <div class="card-columns">
+                    {% for comment in comments %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ comment.student }} </h5>
+                                <p class="card-text">{{ comment.description }} </p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">{{comment.date}}</small>
+                                <small class="text-muted">{% for category in comment.categories.all.values %} {{ category.name }} {% endfor %}</small>
+                            </div>
+                        </div>
                     {% endfor %}
-            </div>
-    </div>
+                </div>
+
+
+ 
+
+
 {% endblock %}
