@@ -54,10 +54,6 @@ def create_comment(request):
     return render(request, 'create_comment.html', {'form': form})
 
 
-
-
-
-
 @login_required(login_url="cuentas/login/")
 def update_grade(request):
     if request.method == 'POST':
@@ -233,11 +229,3 @@ def student_info(request, pk):
     comments = Comment.objects.filter(student=student.id)
     return render(request, 'student_info.html', {'student': student, 'comments': comments})
 
-
-
-
-#     user = request.user
-#     # Historial de notas
-#     comments = Comment.objects.all()
-#
-#     return render(request, 'comments_history.html', {'comments': comments

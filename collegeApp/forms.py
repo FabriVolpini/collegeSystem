@@ -43,7 +43,7 @@ class CommentCreationForm(forms.ModelForm):
             'description': 'Descripción'
         }
         widgets = {
-            'student': forms.TextInput(attrs={'class': 'col-4 border border-secondary'}),
+            'student': forms.Select(attrs={'class': 'custom-select col-4 border border-secondary'}),
             'categories': forms.Select(attrs={'class': 'custom-select col-4 border border-secondary'}),
             'description': forms.Textarea(attrs={'class': 'col w-80 p-3 border border-secondary'})
         }
