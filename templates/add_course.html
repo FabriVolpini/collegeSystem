@@ -4,7 +4,7 @@
 
 {% block form %}
     <div class="card text-center border-dark mb-3 col-8">
-        <form action="{% url 'newCourse' %}"  method="post">
+        <form action="{% url 'newCourse' %}"  method="post" class="m-3">
             {% csrf_token %}
             {{ form.as_p }}
           <div class="card-footer">

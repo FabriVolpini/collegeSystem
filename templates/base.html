@@ -11,7 +11,7 @@
     <link rel="stylesheet2" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-    <nav id="content" class="navbar bg-dark navbar-dark">
+    <nav id="content" class="navbar bg-dark navbar-dark ">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -59,8 +59,8 @@
             </ul>
         </div>
     </nav>
-    <br>
 
+    <div class="container-fluid m-2"></div>
 {% if user.is_staff == True %}
     {% if Professor  %}
         {% block professor %}
@@ -71,14 +71,14 @@
     {% endif %}
     {% endif %}
 
-    <div class="container col-10">
+    <div class="container col-10 m-3">
     <article>
         {% block content %}
         {% endblock %}
     </article>
     </div>
 
-    <div class="container col-4">
+    <div class="container col-4 m-2">
         {% block body %}
         {% endblock %}
     </div>

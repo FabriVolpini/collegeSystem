@@ -5,8 +5,7 @@
 {% block form %}
     <div class="col col-xl-10">
         <div class="card text-center border-dark mb-3 col">
-            <br>
-            <form action="{% url 'create_comment' %}"  method="post">
+            <form action="{% url 'create_comment' %}"  class="m-3" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="card-footer">
