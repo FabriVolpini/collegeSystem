@@ -31,8 +31,8 @@
                         <a href="{% url 'newCategory' %}" class="nav-link">Agregar categoría</a>
                          <a href="{% url 'newPhone' %}" class="nav-link">Agregar teléfono</a>
                         <a href="{% url 'comments_list' %}" class="nav-link">Ver comentarios</a>
-                        <a href="{% url 'ver_asistencia' %}" class="nav-link">Ver Asistencias</a>
-                        <a href="{% url 'marks' %}" class="nav-link">Ver Rendimiento Académico</a>
+                        {% comment %}<a href="{% url 'ver_asistencia' %}" class="nav-link">Ver Asistencias</a>
+                        <a href="{% url 'marks' %}" class="nav-link">Ver Rendimiento Académico</a>{% endcomment %}
                     {% elif user.is_staff %}
                         <a href="{% url 'create_comment' %}" class="nav-link">Crear comentarios</a>
                         <a href="{% url 'add_student' %}" class="nav-link">Agregar alumno</a>
@@ -40,8 +40,8 @@
                         <a href="{% url 'newCategory' %}" class="nav-link">Agregar categoría</a>
                          <a href="{% url 'newPhone' %}" class="nav-link">Agregar teléfono</a>
                         <a href="{% url 'create_comment' %}" class="nav-link">Crear comentario</a>
-                        <a href="assistance.html" class="nav-link">Tomar asistencia</a>
-                        <a href="/ver-asistencia/" class="nav-link">Ver Asistencias</a>
+                        {% comment %}<a href="assistance.html" class="nav-link">Tomar asistencia</a>
+                        <a href="/ver-asistencia/" class="nav-link">Ver Asistencias</a>{% endcomment %}
                     {% else %}
                         <a href="{% url 'create_comment' %}" class="nav-link">Crear comentarios</a>
                         <a href="{% url 'add_student' %}" class="nav-link">Agregar alumno</a>
@@ -49,7 +49,7 @@
                         <a href="{% url 'newCategory' %}" class="nav-link">Agregar categoría</a>
                         <a href="{% url 'newPhone' %}" class="nav-link">Agregar teléfono</a>
                         <a href="{% url 'upgrade_grade' %}" class="nav-link">Subir calificaciones</a>
-                        <a href="academic_progress.html" class="nav-link">Ver progreso académico</a>
+                        {% comment %}<a href="academic_progress.html" class="nav-link">Ver progreso académico</a>{% endcomment %}
                     {% endif %}
 
                     {% if user.is_authenticated %}
