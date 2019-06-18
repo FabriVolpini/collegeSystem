@@ -3,23 +3,33 @@
 {% block title %}Información del Alumno{% endblock %}
 
 {% block content %}
-    <div class="card border-dark mb-3 col-3">
+    <div class="container-fluid border border-secondary">
         <div class="card-header h3">
             {{ student.first_name }}, {{ student.last_name }}</div>
-            <div class="card-body">
+            <div class="row card-body">
+                <div class="col">
                 <h5 class="card-title">Fecha de nacimiento</h5>
                      <p class="card-text">{{ student.birthday }}</p>
-                <h5 class="card-title">Curso</h5>
+                </div>
+             <div class="col">
+                  <h5 class="card-title">Curso</h5>
                     <p class="card-text">{{ student.course}}</p>
-                <h5 class="card-title">Números de emergencia</h5>
-                    {% for phone in student.phone.all.values %}
-                        <p class="card-text">{{ phone.number }} </p>
-                    {% endfor %}
+                </div>
+                <div class="col">
+                 <h5 class="card-title">Números de emergencia</h5>
+                    <div class="row">
+                         {% for phone in student.phone.all.values %}
+                             <div class="col">
+                                <p class="card-text">{{ phone.number }} </p>
+                             </div>
+                         {% endfor %}
+                    </div>
+                </div>
             </div>
     </div>
 
-     <div class="container ml-md-auto">
-              <div class="card-columns">
+
+    <div class="card-columns">
               {% for comment in comments %}
                 <div class="card">
                 <div class="card-body">
@@ -34,5 +44,6 @@
             </div>
                 {% endfor %}
             </div>
-          </div>
+
+
 {% endblock %}

@@ -10,7 +10,7 @@ from .forms import CommentCreationForm, GradeCreationForm, MembersCreationForm, 
 def comments_history(request):
     user = request.user
     # Historial de notas
-    comments = Comment.objects.all()
+    comments = Comment.objects.all().order_by('-date')
 
     return render(request, 'comments_history.html', {'comments': comments, 'user': user})
 
