@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from collegeApp.models import Comment, Grades, Professor, Course, CustomUser, Student, Phone
 from django.http import HttpResponseRedirect
 from .forms import CommentCreationForm, GradeCreationForm, MembersCreationForm, StudentCreationForm, CourseCreationForm, \
-    SubjectCreationForm, CategoryCreationForm
+    SubjectCreationForm, CategoryCreationForm, PhoneCreationForm
 
 
 @login_required(login_url="cuentas/login/")
@@ -228,4 +228,23 @@ def student_info(request, pk):
     # phone = Phone.objects.get(student=student)
     comments = Comment.objects.filter(student=student.id)
     return render(request, 'student_info.html', {'student': student, 'comments': comments})
+
+    return render(request, 'student_info.html', {'student': student, 'comments': comments})
+
+
+@login_required(login_url="cuentas/login/")
+def new_phone(request):
+    if request.method == 'POST':
+        form = PhoneCreationForm(request.POST)
+
+        if form.is_valid():
+            phone = form.save(commit=False)
+            phone.save()
+
+            return HttpResponseRedirect('/')
+
+    else:
+        form = PhoneCreationForm()
+
+    return render(request, 'add_phones.html', {'form': form})
 

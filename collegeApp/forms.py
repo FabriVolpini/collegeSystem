@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput, Textarea
-from .models import CustomUser, Comment, Student, Course, Grades, Subject, Category
+from .models import CustomUser, Comment, Student, Course, Grades, Subject, Category, Phone
 from django import forms
 
 
@@ -37,15 +37,16 @@ class CommentCreationForm(forms.ModelForm):
     class Meta:
         model = Comment
         exclude = ['deleted_at', 'date', 'author']
+
         labels = {
             'student': 'Alumno',
             'categories': 'Categoría',
             'description': 'Descripción'
         }
         widgets = {
-            'student': forms.Select(attrs={'class': 'custom-select col-4 border border-secondary'}),
-            'categories': forms.Select(attrs={'class': 'custom-select col-4 border border-secondary'}),
-            'description': forms.Textarea(attrs={'class': 'col w-80 p-3 border border-secondary'})
+            'student': forms.Select(attrs={'class': 'custom-select col-5 '}),
+            'categories': forms.SelectMultiple(attrs={'class': 'custom-select col-4'}),
+            'description': forms.Textarea(attrs={'class': 'col w-80 p-3 border border border-secondary '})
         }
 
 
@@ -54,8 +55,8 @@ class StudentCreationForm(forms.ModelForm):
         model = Student
         exclude = ['deleted_at']
         labels = {
-            'first_name': 'Nombres del alumno',
-            'last_name': 'Apellidos del alumno',
+            'first_name': 'Nombre/s del alumno',
+            'last_name': 'Apellido/s del alumno',
             'birthday': 'Fecha de nacimiento',
             'course': 'Curso'
         }
@@ -103,9 +104,9 @@ class CourseCreationForm(forms.ModelForm):
         }
 
         widgets = {
-            'year': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
-            'division': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
-            'shift': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'})
+            'year': forms.Select(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'division': forms.Select(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'shift': forms.Select(attrs={'class': 'form-control col-lg-8 offset-md-2'})
         }
 
 
@@ -141,3 +142,19 @@ class CategoryCreationForm(forms.ModelForm):
 # class UserLoginForm(form.Form):
 #    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label='Email')
 #    password = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label='Contraseña')
+
+
+class PhoneCreationForm(forms.ModelForm):
+    class Meta:
+        model = Phone
+        exclude = ['deleted_at']
+
+        labels = {
+            'number': 'Número',
+            'student': 'Alumno'
+        }
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control col-lg-8 offset-md-2'}),
+            'student': forms.Select(attrs={'class': 'form-control col-lg-8 offset-md-2'})
+        }

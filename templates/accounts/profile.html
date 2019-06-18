@@ -12,13 +12,16 @@
                      <p class="card-text">{{ user.email }}</p>
                  <h5 class="card-title">Permiso de:</h5>
                     <p class="card-text">Director/a</p>
-                <h5 class="card-title">Fecha de nacimiento</h5>
-                     <p class="card-text">{{ user.birthday }}</p>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-secondary">Cambiar información</button>
             </div>
     </div>
-         <div class="card-columns">
-        {% for comment in comments %}
-            <div class="card">
+        <br>
+          <div class="container ml-md-auto">
+              <div class="card-columns">
+              {% for comment in comments %}
+                <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{comment.student}}</h5>
                     <p class="card-text">{{comment.description }}</p>
@@ -29,8 +32,9 @@
                     {% endfor %} </small>
                 </div>
             </div>
-        {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+          </div>
 {% endblock %}
 
 
@@ -44,10 +48,9 @@
                      <p class="card-text">{{ user.email }}</p>
                  <h5 class="card-title">Permiso de:</h5>
                     <p class="card-text">Preceptor/a</p>
-                <h5 class="card-title">Fecha de nacimiento</h5>
-                     <p class="card-text">{{ user.birthday }}</p>
             </div>
     </div>
+         <button type="button" class="btn btn-secondary">Cambiar información</button>
          <div class="card-columns">
         {% for comment in comments %}
             <div class="card">
@@ -75,10 +78,9 @@
                      <p class="card-text">{{ user.email }}</p>
                  <h5 class="card-title">Permiso de:</h5>
                     <p class="card-text">Profesor/a</p>
-                 <h5 class="card-title">Fecha de nacimiento</h5>
-                     <p class="card-text">{{ user.birthday }}</p>
             </div>
     </div>
+         <button type="button" class="btn btn-secondary">Cambiar información</button>
          <div class="card-columns">
         {% for comment in comments %}
             <div class="card">

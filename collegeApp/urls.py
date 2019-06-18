@@ -13,6 +13,7 @@ urlpatterns = [
     path('agregar-curso/', views.new_course, name='newCourse'),
     path('agregar-materia/', views.new_subject, name='newSubject'),
     path('agregar-categoria/', views.new_category, name='newCategory'),
+    path('agregar-telefono)/', views.new_phone, name='newPhone'),
     path('informacion-alumno/<int:pk>', views.student_info, name='studentInfo')
 
 ]
